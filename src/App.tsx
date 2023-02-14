@@ -1,12 +1,15 @@
 import PrimaryRouter from "./app/routers/PrimaryRouter";
 import { BrowserRouter } from "react-router-dom";
 import "./app/sass/main.scss";
+import { PlayerContextProvider } from "./app/contexts/playerContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <PrimaryRouter />
-    </BrowserRouter>
+    <PlayerContextProvider>
+      <BrowserRouter>
+        <PrimaryRouter />
+      </BrowserRouter>
+    </PlayerContextProvider>
   );
 }
 

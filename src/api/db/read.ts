@@ -1,6 +1,6 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase.config";
-import { Game, Card, Cards, Rules, Rule } from "./utils";
+import { Game, Card, Cards, Rules, Rule, IPlayer } from "./utils";
 
 // GET ALL ZONES IN LIVE RELOAD
 // export const getGames = async (): Promise<boolean> => {
@@ -46,13 +46,36 @@ export const getCards = async (
   });
 };
 
-export const getRules = async ( setRules: React.Dispatch<React.SetStateAction<Rules>>): Promise<boolean> => {
+export const getRules = async (
+  setRules: React.Dispatch<React.SetStateAction<Rules>>
+): Promise<boolean> => {
   const documentRef = doc(db, "rules", "rules");
 
   return new Promise((resolve) => {
-      onSnapshot(documentRef, (doc) => {
-        setRules(doc.data() as Rules);
-      });
+    onSnapshot(documentRef, (doc) => {
+      setRules(doc.data() as Rules);
+    });
+    resolve(true);
+  });
+};
+
+export const fillPlayer = async (
+  setPlayer: React.Dispatch<React.SetStateAction<IPlayer>>,
+  path: string
+) => {
+  const documentRef = doc(db, "games", "game");
+
+  return new Promise((resolve) => {
+    onSnapshot(documentRef, (doc) => {
+      const data = doc.data();
+      const players = data?.players;
+
+      if (path === "/player1") {
+        setPlayer(players[0]);
+      } else {
+        setPlayer(players[1]);
+      }
+    });
     resolve(true);
   });
 };

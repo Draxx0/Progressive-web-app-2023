@@ -9,7 +9,7 @@ const GameView = () => {
   const [cards, setCards] = useState<Cards>([]);
   const { player } = useContext(PlayerContext);
 
-  console.log("player context :", player);
+  console.log("player context in game view :", player);
 
   useEffect(() => {
     getGame(setGame);
