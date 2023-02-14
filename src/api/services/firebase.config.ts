@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC-L8zHawYRovKFj8zx9kFXaFOD0pnQ0aw",
-  authDomain: "progressive-web-app-2023.firebaseapp.com",
-  projectId: "progressive-web-app-2023",
-  storageBucket: "progressive-web-app-2023.appspot.com",
-  messagingSenderId: "881787241989",
-  appId: "1:881787241989:web:f52deccd494e3314f9be6c",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
