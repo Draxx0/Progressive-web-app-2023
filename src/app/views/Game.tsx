@@ -1,38 +1,35 @@
-import { useState, useEffect } from "react";
-import { createGame } from "../../api/db/post";
-import { getGame } from "../../api/db/read";
-import { Game } from "../../api/db/utils";
+import { useState, useEffect, useContext } from "react";
+import { createCards, createGame } from "../../api/db/post";
+import { getGame, getCards } from "../../api/db/read";
+import { Game, Cards } from "../../api/db/utils";
+import { PlayerContext } from "../contexts/playerContext";
 
 const GameView = () => {
   const [game, setGame] = useState<Game | null>(null);
-  const handleClick = (e: any) => {
-    createGame(e.target.innerText);
-  };
+  const [cards, setCards] = useState<Cards>([]);
+  const { player } = useContext(PlayerContext);
+
+  console.log("player context :", player);
 
   useEffect(() => {
     getGame(setGame);
+    getCards(setCards);
   }, []);
+
+  useEffect(() => {
+    if (cards) {
+      console.log("card : ", cards);
+    }
+  }, [cards]);
+
+  useEffect(() => {
+    if (game) {
+      console.log("game :", game);
+    }
+  }, [game]);
   return (
     <div className="game">
-      <div
-        style={{ padding: "100px", backgroundColor: "red" }}
-        onClick={(e) => handleClick(e)}
-      >
-        Player 1
-      </div>
-      <div
-        style={{ padding: "100px", backgroundColor: "orange" }}
-        onClick={(e) => handleClick(e)}
-      >
-        Player 2
-      </div>
-      <div
-        style={{ padding: "100px", backgroundColor: "green" }}
-        onClick={(e) => handleClick(e)}
-      >
-        Player 3
-      </div>
-      <h1>{game && game.pooc}</h1>
+      <h1>Game Screen</h1>
     </div>
   );
 };
