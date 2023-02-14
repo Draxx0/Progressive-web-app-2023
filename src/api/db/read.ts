@@ -59,23 +59,43 @@ export const getRules = async (
   });
 };
 
-export const fillPlayer = async (
-  setPlayer: React.Dispatch<React.SetStateAction<IPlayer>>,
-  path: string
+export const getPlayers = async (
+  setPlayers: React.Dispatch<React.SetStateAction<IPlayer[]>>
 ) => {
   const documentRef = doc(db, "games", "game");
 
   return new Promise((resolve) => {
     onSnapshot(documentRef, (doc) => {
       const data = doc.data();
+      
       const players = data?.players;
-
-      if (path === "/player1") {
-        setPlayer(players[0]);
-      } else {
-        setPlayer(players[1]);
-      }
+      console.log(players);
+      
+      setPlayers(players);
     });
     resolve(true);
   });
 };
+
+// export const fillPlayer = async (
+//   setPlayer: React.Dispatch<React.SetStateAction<IPlayer>>,
+//   path: string
+// ) => {
+//   const documentRef = doc(db, "games", "game");
+
+//   return new Promise((resolve) => {
+//     onSnapshot(documentRef, (doc) => {
+//       const data = doc.data();
+//       const players = data?.players;
+//       let numberOfPlayer = data?.numberOfPlayer;
+
+//       if (path === "/player1") {
+//         setPlayer(players[0]);
+//         numberOfPlayer = numberOfPlayer + 1;
+//       } else {
+//         setPlayer(players[1]);
+//       }
+//     });
+//     resolve(true);
+//   });
+// };

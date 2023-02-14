@@ -8,8 +8,7 @@ const PrimaryRouter = () => {
     <Routes>
       <Route path="/" element={<MenuScreen />} />
       <Route path="/game" element={<GameView />} />
-      <Route path="/player1" element={<PlayerScreen />} />
-      <Route path="/player2" element={<PlayerScreen />} />
+      <Route path="/player" element={<PlayerScreen />} />
     </Routes>
   );
 };

@@ -1,6 +1,37 @@
 type Game = {
-  id: string;
-  pooc: string;
+  isGameActive: boolean;
+  isSameCard: boolean;
+  isTotemCatch: boolean;
+  numberOfPlayer: number;
+  playerTurn: number;
+  players: IPlayer[];
+};
+
+const gameDefault: Game = {
+  numberOfPlayer: 0,
+  isSameCard: false,
+  isTotemCatch: false,
+  players: [
+    {
+      playerName: "",
+      cardsNumber: 30,
+      card: "",
+      discardCards: 0,
+      playerNumber: 1,
+      isReservedSlot: true,
+    },
+
+    {
+      playerName: "",
+      cardsNumber: 30,
+      card: "",
+      discardCards: 0,
+      playerNumber: 2,
+      isReservedSlot: true,
+    },
+  ],
+  playerTurn: 1,
+  isGameActive: false,
 };
 
 type Games = Game[];
@@ -28,6 +59,8 @@ type IPlayer = {
   cardsNumber: number;
   discardCards: number;
   playerNumber: number;
+  isReservedSlot: boolean;
+  playerName: string;
 };
 
 const playerDefault = {
@@ -35,7 +68,9 @@ const playerDefault = {
   cardsNumber: 0,
   discardCards: 0,
   playerNumber: 0,
+  isReservedSlot: false,
+  playerName: "",
 };
 
 export type { Game, Games, Card, Cards, Rules, Rule, IPlayer };
-export { playerDefault };
+export { playerDefault, gameDefault };
