@@ -4,20 +4,10 @@ import { getGame } from "../../api/db/read";
 import { Game } from "../../api/db/utils";
 
 const GameView = () => {
-  const [string, setString] = useState<string>("");
   const [game, setGame] = useState<Game | null>(null);
   const handleClick = (e: any) => {
-    setString(e.target.innerText);
-    console.log("click", e.target.innerText);
-    console.log("string", string);
+    createGame(e.target.innerText);
   };
-
-  useEffect(() => {
-    if (string.length !== 0) {
-      createGame(string);
-    }
-    // console.log(string);
-  }, [string]);
 
   useEffect(() => {
     getGame(setGame);
@@ -35,6 +25,12 @@ const GameView = () => {
         onClick={(e) => handleClick(e)}
       >
         Player 2
+      </div>
+      <div
+        style={{ padding: "100px", backgroundColor: "green" }}
+        onClick={(e) => handleClick(e)}
+      >
+        Player 3
       </div>
       <h1>{game && game.pooc}</h1>
     </div>
