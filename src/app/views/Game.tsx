@@ -7,9 +7,6 @@ import { PlayerContext } from "../contexts/playerContext";
 const GameView = () => {
   const [game, setGame] = useState<Game | null>(null);
   const [cards, setCards] = useState<Cards>([]);
-  const { player } = useContext(PlayerContext);
-
-  console.log("player context in game view :", player);
 
   useEffect(() => {
     getGame(setGame);
