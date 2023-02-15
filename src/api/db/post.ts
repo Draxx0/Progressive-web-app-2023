@@ -30,7 +30,6 @@ export const reserveGameSlot = async (players: IPlayer[]) => {
   const docRef = doc(db, "games", "game");
   console.log(players);
   
-
   const newData = {
     players: players,
   };

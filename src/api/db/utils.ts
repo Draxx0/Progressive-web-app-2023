@@ -2,6 +2,7 @@ type Game = {
   isGameActive: boolean;
   isSameCard: boolean;
   isTotemCatch: boolean;
+  isGamePause: boolean;
   numberOfPlayer: number;
   playerTurn: number;
   players: IPlayer[];
@@ -10,6 +11,7 @@ type Game = {
 const gameDefault: Game = {
   numberOfPlayer: 0,
   isSameCard: false,
+  isGamePause: false,
   isTotemCatch: false,
   players: [
     {
@@ -42,6 +44,7 @@ type Card = {
   cardColor: string;
   cardNumber: number;
   cardOwner: string;
+  cardName: string;
 };
 
 type Cards = Card[];

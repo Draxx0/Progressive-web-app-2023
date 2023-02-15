@@ -4,335 +4,383 @@
     "cardShape": "circle-arc",
     "cardColor": "bleu",
     "cardNumber": 1,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "circle-arc-b"
   },
   {
     "id": "QDTSEHCBRT",
     "cardShape": "circle-arc",
     "cardColor": "rouge",
     "cardNumber": 1,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "circle-arc-r"
   },
   {
     "id": "KDNXHTOLKD",
     "cardShape": "circle-arc",
     "cardColor": "jaune",
     "cardNumber": 1,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "circle-arc-y"
   },
   {
     "id": "JFKGNWBEIF",
     "cardShape": "circle-arc",
     "cardColor": "vert",
     "cardNumber": 1,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "circle-arc-g"
   },
   {
     "id": "ZURHCDKTMW",
     "cardShape": "squares",
     "cardColor": "bleu",
     "cardNumber": 2,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "squares-b"
   },
   {
     "id": "UDIRKFHNTB",
     "cardShape": "squares",
     "cardColor": "rouge",
     "cardNumber": 2,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "squares-r"
   },
   {
     "id": "ZPROVJYLFK",
     "cardShape": "squares",
     "cardColor": "jaune",
     "cardNumber": 2,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "squares-y"
   },
   {
     "id": "QMXLITJRND",
     "cardShape": "squares",
     "cardColor": "vert",
     "cardNumber": 2,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "squares-g"
   },
   {
     "id": "UDIRJFKVMS",
     "cardShape": "triangle",
     "cardColor": "bleu",
     "cardNumber": 3,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "triangle-b"
   },
   {
     "id": "SPEODJCUTKR",
     "cardShape": "triangle",
     "cardColor": "rouge",
     "cardNumber": 3,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "triangle-r"
   },
   {
     "id": "SLQMEROTIN",
     "cardShape": "triangle",
     "cardColor": "jaune",
     "cardNumber": 3,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "triangle-y"
   },
   {
     "id": "AQWXDROLKN",
     "cardShape": "triangle",
     "cardColor": "vert",
     "cardNumber": 3,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "triangle-g"
   },
   {
     "id": "QKXNRTEUDH",
     "cardShape": "losange",
     "cardColor": "bleu",
     "cardNumber": 4,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "losange-b"
   },
   {
     "id": "MQLEITUGNQ",
     "cardShape": "losange",
     "cardColor": "rouge",
     "cardNumber": 4,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "losange-r"
   },
   {
     "id": "POLDNRESLM",
     "cardShape": "losange",
     "cardColor": "jaune",
     "cardNumber": 4,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "losange-y"
   },
   {
     "id": "QPOEDRTFCN",
     "cardShape": "losange",
     "cardColor": "vert",
     "cardNumber": 4,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "losange-g"
   },
   {
     "id": "AORITNVHGZ",
     "cardShape": "quadra-circle",
     "cardColor": "bleu",
     "cardNumber": 5,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "quadra-circle-b"
   },
   {
     "id": "MPLSKRNTIJ",
     "cardShape": "quadra-circle",
     "cardColor": "rouge",
     "cardNumber": 5,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "quadra-circle-r"
   },
   {
     "id": "QLSNCBYTGD",
     "cardShape": "quadra-circle",
     "cardColor": "jaune",
     "cardNumber": 5,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "quadra-circle-y"
   },
   {
     "id": "QWLOERFCVT",
     "cardShape": "quadra-circle",
     "cardColor": "vert",
     "cardNumber": 5,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "quadra-circle-g"
   },
   {
     "id": "SKDJENSLEPQ",
     "cardShape": "pokeball",
     "cardColor": "bleu",
     "cardNumber": 6,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "pokeball-b"
   },
   {
     "id": "SNVHTUYWLE",
     "cardShape": "pokeball",
     "cardColor": "rouge",
     "cardNumber": 6,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "pokeball-r"
   },
   {
     "id": "OZEXWCRTFV",
     "cardShape": "pokeball",
     "cardColor": "jaune",
     "cardNumber": 6,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "pokeball-y"
   },
   {
     "id": "LQMWNRDJTH",
     "cardShape": "pokeball",
     "cardColor": "vert",
     "cardNumber": 6,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "pokeball-g"
   },
   {
     "id": "ALZMDKRNTB",
     "cardShape": "fillPokeball",
     "cardColor": "bleu",
     "cardNumber": 7,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "fillPokeball-b"
   },
   {
     "id": "ZNCJTHEOPL",
     "cardShape": "fillPokeball",
     "cardColor": "rouge",
     "cardNumber": 7,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "fillPokebal-r"
   },
   {
     "id": "POEKTLENDG",
     "cardShape": "fillPokeball",
     "cardColor": "jaune",
     "cardNumber": 7,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "fillPokeball-y"
   },
   {
     "id": "QJNEHDGRYT",
     "cardShape": "fillPokeball",
     "cardColor": "vert",
     "cardNumber": 7,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "fillPokeball-g"
   },
   {
     "id": "ZFJRNEIPLW",
     "cardShape": "shelf",
     "cardColor": "bleu",
     "cardNumber": 8,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "shelf-b"
   },
   {
     "id": "XNVJRLDHDJ",
     "cardShape": "shelf",
     "cardColor": "rouge",
     "cardNumber": 8,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "shelf-r"
   },
   {
     "id": "MPLTIDNRUT",
     "cardShape": "shelf",
     "cardColor": "jaune",
     "cardNumber": 8,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "shelf-y"
   },
   {
     "id": "QWBEZUEINR",
     "cardShape": "shelf",
     "cardColor": "vert",
     "cardNumber": 8,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "shelf-g"
   },
   {
     "id": "MLKIJNHVGT",
     "cardShape": "beacon",
     "cardColor": "bleu",
     "cardNumber": 9,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "beacon-b"
   },
   {
     "id": "AZSDCFGBHY",
     "cardShape": "beacon",
     "cardColor": "rouge",
     "cardNumber": 9,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "beacon-r"
   },
   {
     "id": "KSJTLEMNCH",
     "cardShape": "beacon",
     "cardColor": "jaune",
     "cardNumber": 9,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "beacon-y"
   },
   {
     "id": "QHNXTELKNR",
     "cardShape": "beacon",
     "cardColor": "vert",
     "cardNumber": 9,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "beacon-g"
   },
   {
     "id": "WNKLJDYTHE",
     "cardShape": "rectangle",
     "cardColor": "bleu",
     "cardNumber": 10,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "rectangle-b"
   },
   {
     "id": "LWJRIDUXMN",
     "cardShape": "rectangle",
     "cardColor": "rouge",
     "cardNumber": 10,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "rectangle-r"
   },
   {
     "id": "QLNHWTGEBG",
     "cardShape": "rectangle",
     "cardColor": "jaune",
     "cardNumber": 10,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "rectangle-y"
   },
   {
     "id": "POLMKNJHYG",
     "cardShape": "rectangle",
     "cardColor": "vert",
     "cardNumber": 10,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "rectangle-g"
   },
   {
     "id": "TFREDXCBJI",
     "cardShape": "diagonale-line",
     "cardColor": "bleu",
     "cardNumber": 11,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "diagonale-line-b"
   },
   {
     "id": "VSYTNEBVEN",
     "cardShape": "diagonale-line",
     "cardColor": "rouge",
     "cardNumber": 11,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "diagonale-line-r"
   },
   {
     "id": "SKRHNEDLME",
     "cardShape": "diagonale-line",
     "cardColor": "jaune",
     "cardNumber": 11,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "diagonale-line-y"
   },
   {
     "id": "MPLOKJUGTF",
     "cardShape": "diagonale-line",
     "cardColor": "vert",
     "cardNumber": 11,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "diagonale-line-g"
   },
   {
     "id": "MPOIDNTHJQ",
-    "cardShape": "eclipe",
+    "cardShape": "eclipse",
     "cardColor": "bleu",
     "cardNumber": 12,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "eclipse-b"
   },
   {
     "id": "QMLUNDGEOR",
-    "cardShape": "eclipe",
+    "cardShape": "eclipse",
     "cardColor": "rouge",
     "cardNumber": 12,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "eclipse-r"
   },
   {
     "id": "LMOLKJUYGT",
-    "cardShape": "eclipe",
+    "cardShape": "eclipse",
     "cardColor": "jaune",
     "cardNumber": 12,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "eclipse-y"
   },
   {
     "id": "WXDSZERFTG",
-    "cardShape": "eclipe",
+    "cardShape": "eclipse",
     "cardColor": "vert",
     "cardNumber": 12,
-    "cardOwner": ""
+    "cardOwner": "",
+    "cardName": "eclipse-g"
   }
 ]
