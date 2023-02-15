@@ -6,9 +6,8 @@ import PlayerScreen from "../views/PlayerScreen";
 const PrimaryRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<MenuScreen />} />
       <Route path="/game" element={<GameView />} />
-      <Route path="/player" element={<PlayerScreen />} />
+      <Route path="/" element={<PlayerScreen />} />
     </Routes>
   );
 };
