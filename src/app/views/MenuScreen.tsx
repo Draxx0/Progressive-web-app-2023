@@ -4,23 +4,17 @@ import { getGame } from "../../api/db/read";
 import { Game } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 
+
 const MenuScreen = () => {
   const { game, setGame } = useContext(GameContext);
   const navigate = useNavigate();
-
-  const handleSubmit = () => {};
+  
+  const handleSubmit = () =>{}
 
   return (
-    <div
-      className="menu-screen"
-      style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
-    >
-      <div className="userName">
-        <img
-          src="./assets/images/userName-input.png"
-          alt="userName"
-          className="userName__image"
-        />
+<>
+        <div className="userName">
+        <img src="./assets/images/userName-input.png" alt="userName" className="userName__image"/>
         <input
           type="text"
           placeholder="Enter username"
@@ -43,7 +37,9 @@ const MenuScreen = () => {
           className="feuille__image"
         />
       </div>
-    </div>
+</>
+    
+  
   );
 };
 
