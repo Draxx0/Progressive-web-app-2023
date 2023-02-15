@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import { createCards, createGame } from "../../api/db/post";
 import { getGame, getCards } from "../../api/db/read";
 import { Game, Cards } from "../../api/db/utils";
-import { PlayerContext } from "../contexts/playerContext";
 
 const GameView = () => {
   const [game, setGame] = useState<Game | null>(null);
@@ -25,7 +24,10 @@ const GameView = () => {
     }
   }, [game]);
   return (
-    <div className="game">
+    <div
+      className="game"
+      style={{ backgroundImage: `url('./assets/images/game-bg.jpg')` }}
+    >
       <h1>Game Screen</h1>
     </div>
   );
