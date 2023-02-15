@@ -18,10 +18,19 @@
     width: 100%;
   }
 
+  &__text {
+    position: relative;
+    bottom: 130px;
+    left: 10px;
+    line-height: 1.2;
+  }
+
   &__time {
     position: relative;
     bottom: 130px;
     left: 10px;
+    margin-top: 10px;
+    font-size: 3rem;
   }
 }
 
@@ -42,6 +51,11 @@
   }
 }
 
+.interactions {
+  position: relative;
+  padding-bottom: 20px;
+}
+
 .grab-button {
   position: relative;
   bottom: 70px;
@@ -52,5 +66,4 @@
 .card {
   display: flex;
   justify-content: center;
-  padding-bottom: 20px;
 }

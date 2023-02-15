@@ -1,5 +1,6 @@
 type Game = {
   isGameActive: boolean;
+  isGamePause: boolean;
   isSameCard: boolean;
   isTotemCatch: boolean;
   numberOfPlayer: number;
@@ -11,6 +12,7 @@ const gameDefault: Game = {
   numberOfPlayer: 0,
   isSameCard: false,
   isTotemCatch: false,
+  isGamePause: false,
   players: [
     {
       playerName: "",
