@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getGame } from "../../api/db/read";
 import { Game } from "../../api/db/utils";
+import { GameContext } from "../contexts/gameContext";
 
-const MenuScreen = ({username,setUsername}: {username:string,setUsername:React.Dispatch<React.SetStateAction<string>>}) => {
-  const [game, setGame] = useState<Game | null>(null);
+const MenuScreen = () => {
+  const {game, setGame} = useContext(GameContext)
   const navigate = useNavigate();
   
   useEffect(() => {
-    getGame(setGame);
+    console.log(game);
+    
     
   }, []);
   console.log("game :", game);
@@ -28,7 +30,7 @@ const MenuScreen = ({username,setUsername}: {username:string,setUsername:React.D
         <input
           type="text"
           placeholder="Enter username"
-          onChange={(e) => setUsername(e.target.value)}
+          // onChange={(e) => setUsername(e.target.value)}
           className="userName__input"
         />
         </div>

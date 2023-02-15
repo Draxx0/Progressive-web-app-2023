@@ -67,10 +67,7 @@ export const getPlayers = async (
   return new Promise((resolve) => {
     onSnapshot(documentRef, (doc) => {
       const data = doc.data();
-      
       const players = data?.players;
-      console.log(players);
-      
       setPlayers(players);
     });
     resolve(true);

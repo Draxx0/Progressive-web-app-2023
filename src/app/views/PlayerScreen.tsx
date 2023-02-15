@@ -41,6 +41,11 @@ const PlayerScreen = () => {
       setPlayers(players);
       setPlayer(players[playerIndex]);
 
+      const newGameDatas = {
+        
+        players: players,
+      };
+
       reserveGameSlot(players);
     }
   }, [players]);
