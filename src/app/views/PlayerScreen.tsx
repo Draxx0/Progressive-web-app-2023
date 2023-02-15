@@ -66,7 +66,7 @@ const PlayerScreen = () => {
           <h1>Player Screen</h1>
           <div>
             {viewState.playerIsAvailable ? (
-              <p>Ready to play</p>
+              <p className="ready">Ready to play</p>
             ) : (
               <p>Salle d'attente</p>
             )}
