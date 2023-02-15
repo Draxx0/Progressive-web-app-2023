@@ -27,6 +27,9 @@ const MenuScreen = () => {
         />
         <input type="submit" value="play" />
       </form>
+      <div className="image-feuille">
+        <img src="./assets/images/feuilleu.png" alt="feuille" />
+      </div>
     </div>
   );
 };
