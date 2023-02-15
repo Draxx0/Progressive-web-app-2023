@@ -1,24 +1,35 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getGame } from "../../api/db/read";
-import { Game } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 
-
-const MenuScreen = () => {
+const MenuScreen = ({
+  username,
+  setUsername,
+}: {
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const { game, setGame } = useContext(GameContext);
   const navigate = useNavigate();
-  
-  const handleSubmit = () =>{}
+  const [credentials, setCredentials] = useState<string>("");
+
+  const handleSubmit = () => {
+    const gamePlayer = game?.players.find((player) => player.playerNumber); 
+    setUsername(credentials);
+  };
 
   return (
-<>
-        <div className="userName">
-        <img src="./assets/images/userName-input.png" alt="userName" className="userName__image"/>
+    <>
+      <div className="userName">
+        <img
+          src="./assets/images/userName-input.png"
+          alt="userName"
+          className="userName__image"
+        />
         <input
           type="text"
           placeholder="Enter username"
-          // onChange={(e) => setUsername(e.target.value)}
+          onBlur={(e) => setCredentials(e.target.value)}
           className="userName__input"
         />
       </div>
@@ -37,9 +48,7 @@ const MenuScreen = () => {
           className="feuille__image"
         />
       </div>
-</>
-    
-  
+    </>
   );
 };
 

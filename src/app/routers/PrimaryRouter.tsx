@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import GameView from "../views/Game";
-import MenuScreen from "../views/MenuScreen";
 import PlayerScreen from "../views/PlayerScreen";
 
 const PrimaryRouter = () => {

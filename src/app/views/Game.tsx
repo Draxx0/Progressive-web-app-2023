@@ -1,21 +1,17 @@
 import { useState, useEffect, useContext } from "react";
-import { createCards, createGame } from "../../api/db/post";
-import { getGame, getCards, getPlayers } from "../../api/db/read";
-import { Game, Cards, IPlayer } from "../../api/db/utils";
+import { updateGame } from "../../api/db/post";
+import { getCards } from "../../api/db/read";
+import { Cards, IPlayer } from "../../api/db/utils";
+import { GameContext } from "../contexts/gameContext";
 import splitArray from "../functions/splitArray";
 
 const GameView = () => {
-  const [game, setGame] = useState<Game | null>(null);
   const [cards, setCards] = useState<Cards>([]);
-  const [players, setPlayers] = useState<IPlayer[]>([]);
+  const { game, setGame } = useContext(GameContext);
 
   useEffect(() => {
-    getGame(setGame);
     getCards(setCards);
-    getPlayers(setPlayers);
   }, []);
-
-  console.log("players : ", players);
 
   useEffect(() => {
     if (cards) {
@@ -24,39 +20,38 @@ const GameView = () => {
   }, [cards]);
 
   useEffect(() => {
-    const readyToPlay = players.filter(
-      (player) => player.isReservedSlot === true
-    );
-    if (readyToPlay.length === 2 && cards) {
-      const splitedCards = splitArray(cards);
+    if (game) {
+      const readyToPlay = game.players.filter(
+        (player) => player.isReservedSlot === true
+      );
+      if (readyToPlay.length === 2 && cards) {
+        const splitedCards = splitArray(cards);
 
-      const newPlayers = players.map((player) => {
-        if (player.playerNumber === 1) {
-          player.cardsNumber = splitedCards[0].length;
-        } else if (player.playerNumber === 2) {
-          player.cardsNumber = splitedCards[1].length;
-        }
-        return player;
-      });
+        const newPlayers = game.players.map((player) => {
+          if (player.playerNumber === 1) {
+            player.cardsNumber = splitedCards[0].length;
+          } else if (player.playerNumber === 2) {
+            player.cardsNumber = splitedCards[1].length;
+          }
+          return player;
+        });
+        
 
-      const cardsOwner = cards.map((card) => {
-        if (splitedCards[0].includes(card)) {
-          card.cardOwner = "player 1";
-        } else if (splitedCards[1].includes(card)) {
-          card.cardOwner = "player 2";
-        } else {
-          card.cardOwner = "discard";
-        }
+        const cardsOwner = cards.map((card) => {
+          if (splitedCards[0].includes(card)) {
+            card.cardOwner = "player 1";
+          } else if (splitedCards[1].includes(card)) {
+            card.cardOwner = "player 2";
+          } else {
+            card.cardOwner = "discard";
+          }
+          return card;
+        });
 
-        return card;
-      });
-      console.log("cardsOwner : ", cardsOwner);
-
-      console.log("newPlayers : ", newPlayers);
-
-
+        updateGame({ ...game, players: newPlayers });
+      }
     }
-  }, [players, cards]);
+  }, [game?.players, cards]);
 
   return (
     <div

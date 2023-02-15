@@ -1,7 +1,7 @@
 import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../services/firebase.config";
 import cards from "../../app/data/cards.json";
-import { IPlayer } from "./utils";
+import { Game, IPlayer } from "./utils";
 
 export const createGame = async (string: string) => {
   const newData = {
@@ -26,17 +26,28 @@ export const createCards = async () => {
   });
 };
 
-export const reserveGameSlot = async (players: IPlayer[]) => {
-  const docRef = doc(db, "games", "game");
-  console.log(players);
+// export const reserveGameSlot = async (players: IPlayer[]) => {
+//   const docRef = doc(db, "games", "game");
+//   console.log(players);
   
-  const newData = {
-    players: players,
-  };
+//   const newData = {
+//     players: players,
+//   };
 
+//   await setDoc(docRef, newData, { merge: true })
+//     .then(() => {
+//       console.log("Document successfully updated!");
+//     })
+//     .catch((err) => console.log(err));
+// };
+
+export const updateGame = async (game: Game) => {
+  const docRef = doc(db, "games", "game");
+  const newData = game
   await setDoc(docRef, newData, { merge: true })
     .then(() => {
-      console.log("Document successfully updated!");
+      console.log("Turn successfully updated!");
     })
     .catch((err) => console.log(err));
 };
+

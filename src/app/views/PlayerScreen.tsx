@@ -1,59 +1,62 @@
 import { useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
-import { reserveGameSlot } from "../../api/db/post";
-import { getPlayers, getRules } from "../../api/db/read";
+
+import { updateGame } from "../../api/db/post";
+import { getRules } from "../../api/db/read";
 import { IPlayer, Rules } from "../../api/db/utils";
+import Countdown from "../components/Countdown";
+import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
+import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
-  const [players, setPlayers] = useState<IPlayer[]>([]);
   const [rules, setRules] = useState<Rules>([]);
+  const { game, setGame } = useContext(GameContext);
   const { player, setPlayer } = useContext(PlayerContext);
+  const [username, setUsername] = useState<string>("");
   const [viewState, setViewState] = useState<{
     isFetching: boolean;
     playerIsAvailable: null | boolean;
   }>({
-    isFetching: true,
+    isFetching: false, // repasser à true pour que ça fonctionne
     playerIsAvailable: null,
   });
 
   useEffect(() => {
-    getPlayers(setPlayers);
     getRules(setRules);
   }, []);
 
   useEffect(() => {
-    if (players.length && viewState.playerIsAvailable === null) {
-      const playerIndex = players.findIndex((player: IPlayer) => {
+    if (game && game.players.length && viewState.playerIsAvailable === null) {
+      console.log(game.players);
+      let newPlayers = game.players;
+
+      const playerIndex = game.players.findIndex((player: IPlayer) => {
         return !player.isReservedSlot;
       });
 
+      console.log(playerIndex);
+
       if (playerIndex >= 0) {
-        players[playerIndex].isReservedSlot = true;
+        newPlayers[playerIndex].isReservedSlot = true;
       }
 
       setViewState({
         ...viewState,
         playerIsAvailable: playerIndex >= 0 ? true : false,
       });
-      console.log(players);
 
-      setPlayers(players);
-      setPlayer(players[playerIndex]);
+      setPlayer(game.players[playerIndex]);
 
-      const newGameDatas = {
-        
-        players: players,
-      };
+      console.log(newPlayers);
 
-      reserveGameSlot(players);
+      updateGame({ ...game, players: newPlayers });
     }
-  }, [players]);
+  }, [game?.players]);
 
   // GET PLAYER SLOT
   useEffect(() => {
     if (
-      players &&
+      game?.players &&
       viewState.playerIsAvailable != null &&
       viewState.isFetching
     ) {
@@ -62,25 +65,72 @@ const PlayerScreen = () => {
         isFetching: false,
       });
     }
-  }, [players]);
+  }, [game?.players]);
+
+  const handleClick = () => {
+    if (game) {
+      const newGame = {
+        ...game,
+        isTotemCatch: true,
+        isGamePause: true,
+      };
+      setGame(newGame);
+    }
+  };
 
   return (
-    <>
-      {!viewState.isFetching ? (
-        <>
-          <h1>Player Screen</h1>
-          <div>
-            {viewState.playerIsAvailable ? (
-              <p>Ready to play</p>
-            ) : (
-              <p>Salle d'attente</p>
-            )}
-          </div>
-        </>
+    <div
+      className="playerScreen"
+      style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
+    >
+      {username ? (
+        !viewState.isFetching && (
+          <>
+            <h1>Player Screen</h1>
+            <div>
+              {viewState.playerIsAvailable ? (
+                <>
+                  <div className="buttons">
+                    <img src="./assets/icons/rules.png" alt="rules" />
+                    <img src="./assets/icons/sound.png" alt="sound" />
+                  </div>
+
+                  <div className="cooldown">
+                    <img src="./assets/images/Sign.png" alt="sign" />
+                    <Countdown />
+                  </div>
+                  <div className="interactions">
+                    <div className="grab-button">
+                      <img
+                        src="./assets/images/grab.png"
+                        alt="grab"
+                        onClick={handleClick}
+                      />
+                    </div>
+                    <div className="card">
+                      <img
+                        src="./assets/images/back-card.png"
+                        alt="card"
+                        style={{
+                          filter:
+                            player.playerNumber !== game?.playerTurn
+                              ? "brightness(0.5)"
+                              : "initial",
+                        }}
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <p>La salle est pleine</p>
+              )}
+            </div>
+          </>
+        )
       ) : (
-        <p>Une partie est déjà en cours</p>
+        <MenuScreen username={username} setUsername={setUsername} />
       )}
-    </>
+    </div>
   );
 };
 

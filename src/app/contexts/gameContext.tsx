@@ -16,7 +16,7 @@ type GameType = {
 };
 
 const GameContext = createContext<GameType>({
-  game: gameDefault,
+  game: null,
   setGame: () => {},
 });
 
@@ -25,11 +25,11 @@ type IProps = {
 };
 
 const GameContextProvider: FC<IProps> = ({ children }) => {
-  const [game, setGame] = useState<Game | null>(gameDefault);
+  const [game, setGame] = useState<Game | null>(null);
 
   useEffect(() => {
-    getGame(setGame)
-  }, [])
+    getGame(setGame);
+  }, []);
 
   return (
     <GameContext.Provider

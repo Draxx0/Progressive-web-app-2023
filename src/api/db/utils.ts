@@ -1,8 +1,8 @@
 type Game = {
   isGameActive: boolean;
+  isGamePause: boolean;
   isSameCard: boolean;
   isTotemCatch: boolean;
-  isGamePause: boolean;
   numberOfPlayer: number;
   playerTurn: number;
   players: IPlayer[];
@@ -20,7 +20,7 @@ const gameDefault: Game = {
       card: "",
       discardCards: 0,
       playerNumber: 1,
-      isReservedSlot: true,
+      isReservedSlot: false,
     },
 
     {
@@ -29,7 +29,7 @@ const gameDefault: Game = {
       card: "",
       discardCards: 0,
       playerNumber: 2,
-      isReservedSlot: true,
+      isReservedSlot: false,
     },
   ],
   playerTurn: 1,

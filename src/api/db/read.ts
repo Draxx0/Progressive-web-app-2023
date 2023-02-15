@@ -1,21 +1,6 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase.config";
-import { Game, Card, Cards, Rules, Rule, IPlayer } from "./utils";
-
-// GET ALL ZONES IN LIVE RELOAD
-// export const getGames = async (): Promise<boolean> => {
-//   const collectionRef = collection(db, "games");
-
-//   return new Promise((resolve) => {
-//     onSnapshot(collectionRef, (snapshot) => {
-//       const dbGames: Games = [];
-//       snapshot.forEach((doc) => {
-//         dbGames.push({ ...doc.data(), id: doc.id } as Game);
-//       });
-//       resolve(true);
-//     });
-//   });
-// };
+import { Game, Card, Cards, Rules } from "./utils";
 
 export const getGame = async (
   setGame: React.Dispatch<React.SetStateAction<Game | null>>
@@ -59,24 +44,8 @@ export const getRules = async (
   });
 };
 
-export const getPlayers = async (
-  setPlayers: React.Dispatch<React.SetStateAction<IPlayer[]>>
-) => {
-  const documentRef = doc(db, "games", "game");
-
-  return new Promise((resolve) => {
-    onSnapshot(documentRef, (doc) => {
-      const data = doc.data();
-      const players = data?.players;
-      setPlayers(players);
-    });
-    resolve(true);
-  });
-};
-
-// export const fillPlayer = async (
-//   setPlayer: React.Dispatch<React.SetStateAction<IPlayer>>,
-//   path: string
+// export const getPlayers = async (
+//   setPlayers: React.Dispatch<React.SetStateAction<IPlayer[]>>
 // ) => {
 //   const documentRef = doc(db, "games", "game");
 
@@ -84,14 +53,7 @@ export const getPlayers = async (
 //     onSnapshot(documentRef, (doc) => {
 //       const data = doc.data();
 //       const players = data?.players;
-//       let numberOfPlayer = data?.numberOfPlayer;
-
-//       if (path === "/player1") {
-//         setPlayer(players[0]);
-//         numberOfPlayer = numberOfPlayer + 1;
-//       } else {
-//         setPlayer(players[1]);
-//       }
+//       setPlayers(players);
 //     });
 //     resolve(true);
 //   });
