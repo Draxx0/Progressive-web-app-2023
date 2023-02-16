@@ -23,6 +23,10 @@ const PlayerScreen = () => {
     playerIsAvailable: null,
   });
 
+  useEffect(() => {
+    getCards(setCards);
+  }, []);
+
 
  
 
@@ -119,12 +123,6 @@ const PlayerScreen = () => {
     }
   };
 
-  const handleClcik = () => {
-    setIsActive(!isActive);
-    console.log(isActive);
-    
-  };
-
   return (
     
     <div
@@ -135,15 +133,12 @@ const PlayerScreen = () => {
       {username ? (
         !viewState.isFetching && (
           <>
-          {isActive && (
-                    <RulesModal/>
-                  )
-                  }
+            <RulesModal isActive={isActive}/>
             <div>
               {viewState.playerIsAvailable ? (
                 <>
                   <div className="buttons">
-                    <img src="./assets/icons/rules.png" alt="rules" onClick={handleClcik} />
+                    <img src="./assets/icons/rules.png" alt="rules" onClick={() => setIsActive(!isActive)} />
                     <img src="./assets/icons/sound.png" alt="sound" />
                   </div>
 

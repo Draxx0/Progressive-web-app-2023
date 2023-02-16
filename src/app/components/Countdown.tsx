@@ -9,7 +9,7 @@ const Countdown = () => {
   const [rules, setRules] = useState<Rule | null>(null);
   useEffect(() => {
     getRules(setRules);
-  }, [rules]);
+  }, []);
 
   let defaultCountdown = rules?.delayToPlay;
 
