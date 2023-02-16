@@ -5,9 +5,10 @@ import { Game, Card, Cards, Rules } from "./utils";
 export const getGame = async (
   setGame: React.Dispatch<React.SetStateAction<Game | null>>
 ): Promise<boolean> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const documentRef = doc(db, "games", "game");
-    onSnapshot(documentRef, (doc) => {
+    onSnapshot(documentRef, doc => {
+      console.log("GETGAME DB");
       setGame(doc.data() as Game);
     });
     resolve(true);
@@ -19,11 +20,12 @@ export const getCards = async (
 ): Promise<boolean> => {
   const collectionRef = collection(db, "cards");
 
-  return new Promise((resolve) => {
-    onSnapshot(collectionRef, (snapshot) => {
+  return new Promise(resolve => {
+    onSnapshot(collectionRef, snapshot => {
       const dbCards: Cards = [];
-      snapshot.forEach((doc) => {
+      snapshot.forEach(doc => {
         dbCards.push({ ...doc.data(), id: doc.id } as Card);
+        console.log("GETCARDS DB");
         setCards(dbCards);
       });
       resolve(true);
@@ -36,9 +38,10 @@ export const getRules = async (
 ): Promise<boolean> => {
   const documentRef = doc(db, "rules", "rules");
 
-  return new Promise((resolve) => {
-    onSnapshot(documentRef, (doc) => {
+  return new Promise(resolve => {
+    onSnapshot(documentRef, doc => {
       setRules(doc.data() as Rules);
+      console.log("GETRULES DB");
     });
     resolve(true);
   });

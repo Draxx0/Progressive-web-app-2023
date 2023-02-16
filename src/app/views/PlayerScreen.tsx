@@ -66,13 +66,22 @@ const PlayerScreen = () => {
       console.log("isCardShapeEmpty :", isCardShapeEmpty);
 
       if (game?.players[0].cardShape === game?.players[1].cardShape && !isCardShapeEmpty) {
-        game.isSameCard = true;
-        console.log("isSameCard :", game.isSameCard);
-      } else {
-        game.isSameCard = false;
-        console.log("isSameCard :", game.isSameCard);
+        // game.isSameCard = true;
+        if (!game.isSameCard) {
+          if (player.playerNumber === 1) {
+            const discard = cards.map(card => {
+              if (player.discardCards.includes(card.id)) {
+                return card;
+              }
+              console.log("discard :", discard);
+            });
+          }
+        } else {
+          game.isSameCard = false;
+          console.log("isSameCard :", game.isSameCard);
+        }
+        // updateGame({ ...game, isTotemCatch: true, isGamePause: true, isSameCard: game.isSameCard });
       }
-      updateGame({ ...game, isTotemCatch: true, isGamePause: true, isSameCard: game.isSameCard });
     }
   };
 
@@ -81,12 +90,8 @@ const PlayerScreen = () => {
       const newGame = game;
       const newPlayers = game.players;
 
-      const player1Cards = cards.filter(
-        (card) => card.cardOwner === "player 1"
-      );
-      const player2Cards = cards.filter(
-        (card) => card.cardOwner === "player 2"
-      );
+      const player1Cards = cards.filter(card => card.cardOwner === "player 1");
+      const player2Cards = cards.filter(card => card.cardOwner === "player 2");
 
       const currentCardIndex =
         player.playerNumber === 1
@@ -94,9 +99,7 @@ const PlayerScreen = () => {
           : Math.floor(Math.random() * player2Cards.length);
 
       const currentCard =
-        player.playerNumber === 1
-          ? player1Cards[currentCardIndex]
-          : player2Cards[currentCardIndex];
+        player.playerNumber === 1 ? player1Cards[currentCardIndex] : player2Cards[currentCardIndex];
 
       console.log("current card :", currentCard);
 
@@ -117,11 +120,10 @@ const PlayerScreen = () => {
       updateGame({
         ...game,
         playerTurn: game?.playerTurn === 1 ? 2 : 1,
-        players: newPlayers,
+        players: newPlayers
       });
 
       console.log(game?.players);
-      
     }
   };
 
