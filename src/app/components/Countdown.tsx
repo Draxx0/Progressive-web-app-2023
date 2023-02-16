@@ -20,11 +20,7 @@ const Countdown = () => {
   useEffect(() => {
    if(countdown) {
     const interval = setInterval(() => {
-      if (
-        game &&
-        game.isGamePause === false &&
-        game.playerTurn === player.playerNumber
-      ) {
+      if (game && game.isGamePause === false && game.playerTurn === player.playerNumber) {
         if (countdown > 0) {
           setCountdown(countdown - 1);
         } else {

@@ -5,10 +5,12 @@ import { Game, Card, Cards, Rule } from "./utils";
 export const getGame = async (
   setGame: React.Dispatch<React.SetStateAction<Game | null>>
 ): Promise<boolean> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const documentRef = doc(db, "games", "game");
-    onSnapshot(documentRef, (doc) => {
+    onSnapshot(documentRef, doc => {
+      console.log("GETGAME DB");
       setGame(doc.data() as Game);
+      console.log('JE LOOP MEC GAME');
     });
     resolve(true);
   });
@@ -19,12 +21,14 @@ export const getCards = async (
 ): Promise<boolean> => {
   const collectionRef = collection(db, "cards");
 
-  return new Promise((resolve) => {
-    onSnapshot(collectionRef, (snapshot) => {
+  return new Promise(resolve => {
+    onSnapshot(collectionRef, snapshot => {
       const dbCards: Cards = [];
-      snapshot.forEach((doc) => {
+      snapshot.forEach(doc => {
         dbCards.push({ ...doc.data(), id: doc.id } as Card);
+        console.log("GETCARDS DB");
         setCards(dbCards);
+        console.log('JE LOOP MEC CARDS');
       });
       resolve(true);
     });

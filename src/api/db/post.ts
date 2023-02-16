@@ -7,16 +7,14 @@ import {
 } from "firebase/firestore";
 import { db } from "../services/firebase.config";
 import cards from "../../app/data/cards.json";
-import { Cards, Game } from "./utils";
+import { Cards, Game, gameDefault } from "./utils";
 
-export const createGame = async (string: string) => {
-  const newData = {
-    pooc: string,
-  };
-  const docRef = doc(db, "games", "5k2hgrvQvt0sTtnOn5Qm");
+export const createGame = async () => {
+  const newData = gameDefault;
+  const docRef = doc(db, "games", "game" );
   await setDoc(docRef, newData, { merge: true })
     .then(() => {
-      console.log("Document successfully updated!");
+      console.log("Game successfully created!");
     })
     .catch((err) => console.log(err));
 };
@@ -33,6 +31,8 @@ export const createCards = async () => {
 };
 
 export const updateGame = async (game: Game) => {
+  console.log("toto le bo");
+  
   const docRef = doc(db, "games", "game");
   const newData = game;
   await setDoc(docRef, newData, { merge: true })
