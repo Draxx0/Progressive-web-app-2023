@@ -15,13 +15,11 @@ const GameView = () => {
 
   useEffect(() => {
     if (game) {
-      const readyToPlay = game.players.filter(
-        (player) => player.isReservedSlot === true
-      );
+      const readyToPlay = game.players.filter(player => player.isReservedSlot === true);
       if (readyToPlay.length === 2 && cards) {
         const splitedCards = splitArray(cards);
 
-        const newPlayers = game.players.map((player) => {
+        const newPlayers = game.players.map(player => {
           if (player.playerNumber === 1) {
             player.cardsNumber = splitedCards[0].length;
           } else if (player.playerNumber === 2) {
@@ -30,7 +28,7 @@ const GameView = () => {
           return player;
         });
 
-        const cardsOwner = cards.map((card) => {
+        const cardsOwner = cards.map(card => {
           if (splitedCards[0].includes(card)) {
             card.cardOwner = "player 1";
           } else if (splitedCards[1].includes(card)) {
@@ -54,16 +52,13 @@ const GameView = () => {
         backgroundImage: `url('./assets/images/game-bg.jpg')`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-      }}
-    >
+        backgroundPosition: "center"
+      }}>
       <div className="gameboard">
         {game?.isTotemCatch && <p className="catch">Catch ! </p>}
         <div className="left-player">
           <div className="player-cards">
-            <p className="player-cards__playerName">
-              {game?.players[0].playerName}
-            </p>
+            <p className="player-cards__playerName">{game?.players[0].playerName}</p>
             <p className="player-cards__cardsNumber">
               {game?.players[0].cardsNumber} carte(s) restantes
             </p>
@@ -82,17 +77,12 @@ const GameView = () => {
           <img
             src={"/assets/images/totem.png"}
             alt=""
-            className={
-              game?.isTotemCatch ? "totem__image-hide" : "totem__image"
-            }
+            className={game?.isTotemCatch ? "totem__image-hide" : "totem__image"}
           />
         </div>
         <div className="right-player">
           <div className="player-cards">
-            <p className="player-cards__playername">
-              {" "}
-              {game?.players[1].playerName}
-            </p>
+            <p className="player-cards__playername"> {game?.players[1].playerName}</p>
             <p className="player-cards__cardsNumber">
               {game?.players[1].cardsNumber} carte(s) restantes
             </p>

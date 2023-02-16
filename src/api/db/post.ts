@@ -31,6 +31,8 @@ export const createCards = async () => {
 };
 
 export const updateGame = async (game: Game) => {
+  console.log("toto le bo");
+  
   const docRef = doc(db, "games", "game");
   const newData = game;
   await setDoc(docRef, newData, { merge: true })

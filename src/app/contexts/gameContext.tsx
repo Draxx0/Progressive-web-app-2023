@@ -1,12 +1,4 @@
-import {
-  createContext,
-  useState,
-  FC,
-  Dispatch,
-  SetStateAction,
-  ReactNode,
-  useEffect,
-} from "react";
+import { createContext, useState, FC, Dispatch, SetStateAction, ReactNode, useEffect } from "react";
 import { getGame } from "../../api/db/read";
 import { Game, gameDefault } from "../../api/db/utils";
 
@@ -17,7 +9,7 @@ type GameType = {
 
 const GameContext = createContext<GameType>({
   game: null,
-  setGame: () => {},
+  setGame: () => {}
 });
 
 type IProps = {
@@ -35,9 +27,8 @@ const GameContextProvider: FC<IProps> = ({ children }) => {
     <GameContext.Provider
       value={{
         game,
-        setGame,
-      }}
-    >
+        setGame
+      }}>
       {children}
     </GameContext.Provider>
   );

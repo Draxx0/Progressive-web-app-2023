@@ -6,7 +6,7 @@ import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 
 const Countdown = () => {
-  const [rules, setRules] = useState<any>({}); // type à changer voir rémi
+  const [rules, setRules] = useState<any>({});
   useEffect(() => {
     getRules(setRules);
   }, []);
@@ -19,11 +19,7 @@ const Countdown = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (
-        game &&
-        game.isGamePause === false &&
-        game.playerTurn === player.playerNumber
-      ) {
+      if (game && game.isGamePause === false && game.playerTurn === player.playerNumber) {
         if (countdown > 0) {
           setCountdown(countdown - 1);
         } else {
