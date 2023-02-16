@@ -17,7 +17,7 @@ const gameDefault: Game = {
   players: [
     {
       playerName: "",
-      cardsNumber: 30,
+      cardsNumber: 0,
       cardShape: "",
       card: "",
       discardCards: [],
@@ -27,7 +27,7 @@ const gameDefault: Game = {
 
     {
       playerName: "",
-      cardsNumber: 30,
+      cardsNumber: 0,
       cardShape: "",
       card: "",
       discardCards: [],

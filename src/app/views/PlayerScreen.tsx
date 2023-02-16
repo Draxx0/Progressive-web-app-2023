@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 
 import { updateGame } from "../../api/db/post";
-import { IPlayer } from "../../api/db/utils";
+import { getCards, getRules } from "../../api/db/read";
+import { Cards, IPlayer, Rule } from "../../api/db/utils";
 import Countdown from "../components/Countdown";
 import RulesModal from "../components/RulesModal";
 import { GameContext } from "../contexts/gameContext";
@@ -10,6 +11,7 @@ import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [cards, setCards] = useState<Cards>([]);
   const { game, setGame } = useContext(GameContext);
   const { player, setPlayer } = useContext(PlayerContext);
   const [username, setUsername] = useState<string>("");
@@ -70,7 +72,50 @@ const PlayerScreen = () => {
 
   const handlePutCard = () => {
     if (game) {
-      console.log("test");
+      const newGame = game;
+      const newPlayers = game.players;
+
+      const player1Cards = cards.filter(
+        (card) => card.cardOwner === "player 1"
+      );
+      const player2Cards = cards.filter(
+        (card) => card.cardOwner === "player 2"
+      );
+
+      const currentCardIndex =
+        player.playerNumber === 1
+          ? Math.floor(Math.random() * player1Cards.length)
+          : Math.floor(Math.random() * player2Cards.length);
+
+      const currentCard =
+        player.playerNumber === 1
+          ? player1Cards[currentCardIndex]
+          : player2Cards[currentCardIndex];
+
+      console.log("current card :", currentCard);
+
+      if (player.playerNumber === 1) {
+        newPlayers[0].card = currentCard.cardName;
+        newPlayers[0].cardShape = currentCard.cardShape;
+        newPlayers[0].discardCards.push(currentCard.id);
+        newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
+      } else {
+        newPlayers[1].card = currentCard.cardName;
+        newPlayers[1].cardShape = currentCard.cardShape;
+        newPlayers[1].discardCards.push(currentCard.id);
+        newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
+      }
+
+      console.log("new players :", newPlayers);
+
+      updateGame({
+        ...game,
+        playerTurn: game?.playerTurn === 1 ? 2 : 1,
+        players: newPlayers,
+      });
+
+      console.log(game?.players);
+      
     }
   };
 
