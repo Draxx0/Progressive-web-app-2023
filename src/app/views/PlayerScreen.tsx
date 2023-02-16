@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-
 import { updateGame } from "../../api/db/post";
 import { getRules } from "../../api/db/read";
 import { IPlayer, Rules } from "../../api/db/utils";
@@ -18,7 +17,7 @@ const PlayerScreen = () => {
     playerIsAvailable: null | boolean;
   }>({
     isFetching: false, // repasser à true pour que ça fonctionne
-    playerIsAvailable: null,
+    playerIsAvailable: null
   });
 
   useEffect(() => {
@@ -40,7 +39,7 @@ const PlayerScreen = () => {
 
       setViewState({
         ...viewState,
-        playerIsAvailable: playerIndex >= 0 ? true : false,
+        playerIsAvailable: playerIndex >= 0 ? true : false
       });
 
       setPlayer(game.players[playerIndex]);
@@ -51,21 +50,27 @@ const PlayerScreen = () => {
 
   // GET PLAYER SLOT
   useEffect(() => {
-    if (
-      game?.players &&
-      viewState.playerIsAvailable != null &&
-      viewState.isFetching
-    ) {
+    if (game?.players && viewState.playerIsAvailable != null && viewState.isFetching) {
       setViewState({
         ...viewState,
-        isFetching: false,
+        isFetching: false
       });
     }
   }, [game?.players]);
 
   const handleGrabTotem = () => {
     if (game) {
-      updateGame({ ...game, isTotemCatch: true, isGamePause: true });
+      const isCardShapeEmpty = game?.players.every((player: IPlayer) => player.cardShape === "");
+      console.log("isCardShapeEmpty :", isCardShapeEmpty);
+
+      if (game?.players[0].cardShape === game?.players[1].cardShape && !isCardShapeEmpty) {
+        game.isSameCard = true;
+        console.log("isSameCard :", game.isSameCard);
+      } else {
+        game.isSameCard = false;
+        console.log("isSameCard :", game.isSameCard);
+      }
+      updateGame({ ...game, isTotemCatch: true, isGamePause: true, isSameCard: game.isSameCard });
     }
   };
 
@@ -78,8 +83,7 @@ const PlayerScreen = () => {
   return (
     <div
       className="playerScreen"
-      style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
-    >
+      style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}>
       {username ? (
         !viewState.isFetching && (
           <>
@@ -97,11 +101,7 @@ const PlayerScreen = () => {
                   </div>
                   <div className="interactions">
                     <div className="grab-button">
-                      <img
-                        src="./assets/images/grab.png"
-                        alt="grab"
-                        onClick={handleGrabTotem}
-                      />
+                      <img src="./assets/images/grab.png" alt="grab" onClick={handleGrabTotem} />
                     </div>
                     <div className="card">
                       <img
@@ -109,14 +109,10 @@ const PlayerScreen = () => {
                         alt="card"
                         style={{
                           filter:
-                            player.playerNumber !== game?.playerTurn
-                              ? "brightness(0.5)"
-                              : "initial",
+                            player.playerNumber !== game?.playerTurn ? "brightness(0.5)" : "initial"
                         }}
                         onClick={
-                          player.playerNumber === game?.playerTurn
-                            ? handlePutCard
-                            : () => {}
+                          player.playerNumber === game?.playerTurn ? handlePutCard : () => {}
                         }
                       />
                     </div>
