@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 
 import { updateGame } from "../../api/db/post";
-import { getRules } from "../../api/db/read";
-import { IPlayer, Rules } from "../../api/db/utils";
+import { getCards, getRules } from "../../api/db/read";
+import { Cards, IPlayer, Rules } from "../../api/db/utils";
 import Countdown from "../components/Countdown";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
@@ -10,6 +10,7 @@ import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
   const [rules, setRules] = useState<Rules>([]);
+  const [cards, setCards] = useState<Cards>([]);
   const { game, setGame } = useContext(GameContext);
   const { player, setPlayer } = useContext(PlayerContext);
   const [username, setUsername] = useState<string>("");
@@ -23,6 +24,7 @@ const PlayerScreen = () => {
 
   useEffect(() => {
     getRules(setRules);
+    getCards(setCards);
   }, []);
 
   useEffect(() => {
@@ -71,7 +73,43 @@ const PlayerScreen = () => {
 
   const handlePutCard = () => {
     if (game) {
-      console.log("test");
+      const newGame = game;
+      const newPlayers = game.players;
+
+      const player1Cards = cards.filter(
+        (card) => card.cardOwner === "player 1"
+      );
+      const player2Cards = cards.filter(
+        (card) => card.cardOwner === "player 2"
+      );
+
+      const currentCardIndex =
+        player.playerNumber === 1
+          ? Math.floor(Math.random() * player1Cards.length)
+          : Math.floor(Math.random() * player2Cards.length);
+
+      const currentCard =
+        player.playerNumber === 1
+          ? player1Cards[currentCardIndex]
+          : player2Cards[currentCardIndex];
+
+      console.log("current card :", currentCard);
+
+      if (player.playerNumber === 1) {
+        newPlayers[0].card = currentCard.cardName;
+        newPlayers[0].cardShape = currentCard.cardShape;
+      } else {
+        newPlayers[1].card = currentCard.cardName;
+        newPlayers[1].cardShape = currentCard.cardShape;
+      }
+
+      console.log("new players :", newPlayers);
+
+      updateGame({
+        ...game,
+        playerTurn: game?.playerTurn === 1 ? 2 : 1,
+        players: newPlayers,
+      });
     }
   };
 
