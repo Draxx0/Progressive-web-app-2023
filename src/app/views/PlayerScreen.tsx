@@ -34,8 +34,6 @@ const PlayerScreen = () => {
         return !player.isReservedSlot;
       });
 
-      console.log(playerIndex);
-
       if (playerIndex >= 0) {
         newPlayers[playerIndex].isReservedSlot = true;
       }
@@ -46,8 +44,6 @@ const PlayerScreen = () => {
       });
 
       setPlayer(game.players[playerIndex]);
-
-      console.log(newPlayers);
 
       updateGame({ ...game, players: newPlayers });
     }
@@ -67,14 +63,15 @@ const PlayerScreen = () => {
     }
   }, [game?.players]);
 
-  const handleClick = () => {
+  const handleGrabTotem = () => {
     if (game) {
-      const newGame = {
-        ...game,
-        isTotemCatch: true,
-        isGamePause: true,
-      };
-      setGame(newGame);
+      updateGame({ ...game, isTotemCatch: true, isGamePause: true });
+    }
+  };
+
+  const handlePutCard = () => {
+    if (game) {
+      console.log("test");
     }
   };
 
@@ -86,7 +83,6 @@ const PlayerScreen = () => {
       {username ? (
         !viewState.isFetching && (
           <>
-            <h1>Player Screen</h1>
             <div>
               {viewState.playerIsAvailable ? (
                 <>
@@ -104,7 +100,7 @@ const PlayerScreen = () => {
                       <img
                         src="./assets/images/grab.png"
                         alt="grab"
-                        onClick={handleClick}
+                        onClick={handleGrabTotem}
                       />
                     </div>
                     <div className="card">
@@ -117,6 +113,11 @@ const PlayerScreen = () => {
                               ? "brightness(0.5)"
                               : "initial",
                         }}
+                        onClick={
+                          player.playerNumber === game?.playerTurn
+                            ? handlePutCard
+                            : () => {}
+                        }
                       />
                     </div>
                   </div>

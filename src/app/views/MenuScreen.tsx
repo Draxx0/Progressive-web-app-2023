@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { updateGame } from "../../api/db/post";
 import { GameContext } from "../contexts/gameContext";
+import { PlayerContext } from "../contexts/playerContext";
 
 const MenuScreen = ({
   username,
@@ -9,13 +10,17 @@ const MenuScreen = ({
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { game, setGame } = useContext(GameContext);
-  const navigate = useNavigate();
+  const { game } = useContext(GameContext);
   const [credentials, setCredentials] = useState<string>("");
+  const { player } = useContext(PlayerContext);
 
   const handleSubmit = () => {
-    const gamePlayer = game?.players.find((player) => player.playerNumber); 
     setUsername(credentials);
+    if (game) {
+      const newPlayers = game.players;
+      newPlayers[player.playerNumber - 1].playerName = credentials;
+      updateGame({...game, players: newPlayers});
+    }
   };
 
   return (
@@ -29,7 +34,7 @@ const MenuScreen = ({
         <input
           type="text"
           placeholder="Enter username"
-          onBlur={(e) => setCredentials(e.target.value)}
+          onChange={(e) => setCredentials(e.target.value)}
           className="userName__input"
         />
       </div>

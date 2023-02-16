@@ -1,14 +1,22 @@
 import { useState, useEffect, useContext } from "react";
 import { updateGame } from "../../api/db/post";
+import { getRules } from "../../api/db/read";
+import { Rules } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 
 const Countdown = () => {
-  const defaultCountdown = 2;
+  const [rules, setRules] = useState<any>({}); // type à changer voir rémi
+  useEffect(() => {
+    getRules(setRules);
+  }, [rules]);
+
+  let defaultCountdown = rules.delayToPlay;
+
   const [countdown, setCountdown] = useState(defaultCountdown);
-  const [isIntervalRunning, setIsIntervalRunning] = useState<boolean>(false);
   const { player } = useContext(PlayerContext);
   const { game } = useContext(GameContext);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (
@@ -19,7 +27,6 @@ const Countdown = () => {
         if (countdown > 0) {
           setCountdown(countdown - 1);
         } else {
-          console.log("CHANGE PLAYER TURN");
           setCountdown(defaultCountdown);
           updateGame({ ...game, playerTurn: game?.playerTurn === 1 ? 2 : 1 });
         }
@@ -27,9 +34,7 @@ const Countdown = () => {
         clearInterval(interval);
       }
     }, 1000);
-    // if (player.playerNumber !== game?.playerTurn) {
     return () => clearInterval(interval);
-    // }
   }, [countdown, game]);
 
   return (
@@ -41,8 +46,9 @@ const Countdown = () => {
         </>
       ) : (
         <>
-          <p className="cooldown__text">C'est au tour de</p>
-          <p className="cooldown__text">l'adversaire</p>
+          <p className="cooldown__text">
+            C'est au tour <br /> de l'adversaire
+          </p>
         </>
       )}
     </div>

@@ -6,6 +6,7 @@ type Game = {
   numberOfPlayer: number;
   playerTurn: number;
   players: IPlayer[];
+  winner: string;
 };
 
 const gameDefault: Game = {
@@ -17,8 +18,9 @@ const gameDefault: Game = {
     {
       playerName: "",
       cardsNumber: 30,
+      cardShape: "",
       card: "",
-      discardCards: 0,
+      discardCards: [],
       playerNumber: 1,
       isReservedSlot: false,
     },
@@ -26,14 +28,16 @@ const gameDefault: Game = {
     {
       playerName: "",
       cardsNumber: 30,
+      cardShape: "",
       card: "",
-      discardCards: 0,
+      discardCards: [],
       playerNumber: 2,
       isReservedSlot: false,
     },
   ],
   playerTurn: 1,
   isGameActive: false,
+  winner: "",
 };
 
 type Games = Game[];
@@ -59,8 +63,9 @@ type Rules = Rule[];
 
 type IPlayer = {
   card: string;
+  cardShape: string;
   cardsNumber: number;
-  discardCards: number;
+  discardCards: string[];
   playerNumber: number;
   isReservedSlot: boolean;
   playerName: string;
@@ -69,7 +74,8 @@ type IPlayer = {
 const playerDefault = {
   card: "",
   cardsNumber: 0,
-  discardCards: 0,
+  cardShape: "",
+  discardCards: [],
   playerNumber: 0,
   isReservedSlot: false,
   playerName: "",

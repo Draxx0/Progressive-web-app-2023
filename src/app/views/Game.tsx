@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { updateGame } from "../../api/db/post";
+import { updateCards, updateGame } from "../../api/db/post";
 import { getCards } from "../../api/db/read";
-import { Cards, IPlayer } from "../../api/db/utils";
+import { Cards } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 import splitArray from "../functions/splitArray";
 
@@ -35,7 +35,6 @@ const GameView = () => {
           }
           return player;
         });
-        
 
         const cardsOwner = cards.map((card) => {
           if (splitedCards[0].includes(card)) {
@@ -48,10 +47,13 @@ const GameView = () => {
           return card;
         });
 
+        console.log("YOOO");
+
         updateGame({ ...game, players: newPlayers });
+        updateCards(cardsOwner);
       }
     }
-  }, [game?.players, cards]);
+  }, [game?.players]);
 
   return (
     <div
@@ -64,21 +66,49 @@ const GameView = () => {
       }}
     >
       <div className="gameboard">
+        {game?.isTotemCatch && <p className="catch">Catch ! </p>}
         <div className="left-player">
           <div className="player-cards">
-            <img src="" alt="" className="player-cards__image" />
+            <p className="player-cards__playerName">Player 1</p>
+            <p className="player-cards__cardsNumber">
+              {game?.players[0].cardsNumber} carte(s) restantes
+            </p>
+            <img
+              src={!game?.players[0].card ? "/assets/images/back-card.png" : ""}
+              alt=""
+              className="player-cards__image"
+            />
           </div>
         </div>
         <div className="totem">
           <img
             src={"/assets/images/totem.png"}
             alt=""
-            className="totem__image"
+            className={
+              game?.isTotemCatch ? "totem__image-hide" : "totem__image"
+            }
           />
         </div>
         <div className="right-player">
           <div className="player-cards">
-            <img src="" alt="" className="player-cards__image" />
+            <p className="player-cards__playername">Player 2</p>
+            <p className="player-cards__cardsNumber">
+              {game?.players[1].cardsNumber} carte(s) restantes
+            </p>
+            {/* <img
+              src={
+                !game?.players[1].card
+                  ? "/assets/images/back-card.png"
+                  : `/assets/images/${game?.players[1].card}`
+              }
+              alt=""
+              className="player-cards__image"
+            /> */}
+            <img
+              src={!game?.players[1].card ? "/assets/images/back-card.png" : ""}
+              alt=""
+              className="player-cards__image"
+            />
           </div>
         </div>
       </div>

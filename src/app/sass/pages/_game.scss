@@ -3,11 +3,22 @@
 }
 
 .gameboard {
+ position: relative;
  display: flex;
  align-items: center;
  justify-content: space-between;
  height: 100vh;
  padding: 0 100px;
+
+ .catch{
+  font-size: 100px;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translateX(-50%);
+  animation: catch 0.3s ease-in-out forwards;
+ }
 
  .left-player,
  .right-player {
@@ -15,20 +26,29 @@
    &__image {
     width: 300px;
     height: 300px;
-    background-color: red;
+    border-radius: 10px;
    }
   }
  }
 
  .totem {
+  opacity: 1;
+
   &__image {
+   transition: .3s ease-in-out all;
    width: 300px;
+  }
+
+  &__image-hide {
+   transition: .3s ease-in-out all;
+   transform: scale(0);
   }
  }
 }
 
 @media screen and (min-width: 2000px) {
  .gameboard {
+
   .left-player,
   .right-player {
    .player-cards {
@@ -39,10 +59,19 @@
    }
   }
 
-  .totem{
+  .totem {
    &__image {
     width: 400px;
    }
   }
+ }
+}
+
+@keyframes catch {
+ from{
+  transform: translateX(-50%) translateY(10px) scale(0);
+ }
+ to{
+  transform: translateX(-50%) translateY(0px) scale(1);
  }
 }
