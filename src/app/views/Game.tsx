@@ -47,8 +47,6 @@ const GameView = () => {
           return card;
         });
 
-        console.log("YOOO");
-
         updateGame({ ...game, players: newPlayers });
         updateCards(cardsOwner);
       }
@@ -69,12 +67,18 @@ const GameView = () => {
         {game?.isTotemCatch && <p className="catch">Catch ! </p>}
         <div className="left-player">
           <div className="player-cards">
-            <p className="player-cards__playerName">Player 1</p>
+            <p className="player-cards__playerName">
+              {game?.players[0].playerName}
+            </p>
             <p className="player-cards__cardsNumber">
               {game?.players[0].cardsNumber} carte(s) restantes
             </p>
             <img
-              src={!game?.players[0].card ? "/assets/images/back-card.png" : ""}
+              src={
+                !game?.players[0].card
+                  ? "/assets/images/back-card.png"
+                  : `/assets/images/cards/${game?.players[0].card}.png`
+              }
               alt=""
               className="player-cards__image"
             />
@@ -91,21 +95,19 @@ const GameView = () => {
         </div>
         <div className="right-player">
           <div className="player-cards">
-            <p className="player-cards__playername">Player 2</p>
+            <p className="player-cards__playername">
+              {" "}
+              {game?.players[1].playerName}
+            </p>
             <p className="player-cards__cardsNumber">
               {game?.players[1].cardsNumber} carte(s) restantes
             </p>
-            {/* <img
+            <img
               src={
                 !game?.players[1].card
                   ? "/assets/images/back-card.png"
-                  : `/assets/images/${game?.players[1].card}`
+                  : `/assets/images/cards/${game?.players[1].card}.png`
               }
-              alt=""
-              className="player-cards__image"
-            /> */}
-            <img
-              src={!game?.players[1].card ? "/assets/images/back-card.png" : ""}
               alt=""
               className="player-cards__image"
             />
