@@ -65,31 +65,46 @@ const PlayerScreen = () => {
 
       console.log(game?.players[0].cardShape === game?.players[1].cardShape);
 
+      const totalDiscardCards = [...game.players[0].discardCards, ...game.players[1].discardCards];
+
       if (game?.players[0].cardShape === game?.players[1].cardShape && !isCardShapeEmpty) {
+        // ICI LES DEUX CARTES SONT IDENTIQUES DONC RECUPERER LES CARTES DE LA DEFAUSSE DU GAGNANT ET LES STOCKER DANS UN ARRAY & UN ARRAY DE LA DEFAUSSE DU PERDANT
+        console.log("WIN :", totalDiscardCards);
+        console.log("player :", player.playerNumber);
+        
+        player.cardsNumber = player.cardsNumber + totalDiscardCards.length;
+        console.log("player.cardsNumber :", player.cardsNumber);
+        
         // if (!game.isSameCard) {
-        //   if (player.playerNumber === 1) {
-        //     const discard = cards.map(card => {
-        //       if (player.discardCards.includes(card.id)) {
-        //         return card;
-        //       }
-        //       console.log("discard :", discard);
-        //     });
-        //   }
-        // } else {
+          //   if (player.playerNumber === 1) {
+            //     const discard = cards.map(card => {
+              //       if (player.discardCards.includes(card.id)) {
+                //         return card;
+                //       }
+                //       console.log("discard :", discard);
+                //     });
+                //   }
+                // } else {
         //   console.log("isSameCard :", game.isSameCard);
         // }
       } else {
+        //ICI LES DEUX CARTES SONT DIFFERENTES DONC RECUPERER LES CARTES DE LA DEFAUSSE DU PERDANT ET LES STOCKER DANS UN ARRAY & UN ARRAY DE LA DEFAUSSE DU GAGNANT
+        console.log("LOSE :", totalDiscardCards);
+        console.log("player :", player.playerNumber);
+
+        player.cardsNumber = player.cardsNumber + totalDiscardCards.length;
+        console.log("player.cardsNumber :", player.cardsNumber);
       }
       updateGame({ ...game, isTotemCatch: true, isGamePause: true });
     }
   };
-
+  
   const handlePutCard = () => {
     if (game) {
       const newPlayers = game.players;
 
       const player1Cards = cards.filter(card => card.cardOwner === "player 1");
-      const player2Cards = cards.filter(card => card.cardOwner === "player 2");
+      const player2Cards = cards.filter(card => card.cardOwner === "player 2")
 
       const currentCardIndex =
         player.playerNumber === 1

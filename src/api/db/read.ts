@@ -26,9 +26,9 @@ export const getCards = async (
       const dbCards: Cards = [];
       snapshot.forEach(doc => {
         dbCards.push({ ...doc.data(), id: doc.id } as Card);
-        console.log("GETCARDS DB");
+        // console.log("GETCARDS DB");
         setCards(dbCards);
-        console.log('JE LOOP MEC CARDS');
+        // console.log('JE LOOP MEC CARDS');
       });
       resolve(true);
     });

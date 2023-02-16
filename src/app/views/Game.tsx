@@ -82,7 +82,7 @@ const GameView = () => {
         </div>
         <div className="right-player">
           <div className="player-cards">
-            <p className="player-cards__playername"> {game?.players[1].playerName}</p>
+            <p className="player-cards__playerName"> {game?.players[1].playerName}</p>
             <p className="player-cards__cardsNumber">
               {game?.players[1].cardsNumber} carte(s) restantes
             </p>

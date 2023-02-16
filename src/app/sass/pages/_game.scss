@@ -1,76 +1,81 @@
 .game {
- height: 100vh;
+  height: 100vh;
 }
 
 .gameboard {
- position: relative;
- display: flex;
- align-items: center;
- justify-content: space-between;
- height: 100vh;
- padding: 0 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 0 100px;
 
- .catch{
-  font-size: 100px;
-  color: white;
-  position: absolute;
-  left: 50%;
-  top: 5%;
-  transform: translateX(-50%);
-  animation: catch 0.3s ease-in-out forwards;
- }
-
- .left-player,
- .right-player {
-  .player-cards {
-   &__image {
-    width: 300px;
-    height: 300px;
-   }
+  .catch {
+    font-size: 100px;
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translateX(-50%);
+    animation: catch 0.3s ease-in-out forwards;
   }
- }
-
- .totem {
-  opacity: 1;
-
-  &__image {
-   transition: .3s ease-in-out all;
-   width: 300px;
-  }
-
-  &__image-hide {
-   transition: .3s ease-in-out all;
-   transform: scale(0);
-  }
- }
-}
-
-@media screen and (min-width: 2000px) {
- .gameboard {
 
   .left-player,
   .right-player {
-   .player-cards {
-    &__image {
-     width: 400px;
-     height: 400px;
+    .player-cards {
+      &__image {
+        width: 300px;
+        height: 300px;
+      }
+      &__playerName{
+        color: white;
+      }
+      &__cardsNumber {
+          color: white;
+        }
     }
-   }
   }
 
   .totem {
-   &__image {
-    width: 400px;
-   }
+    opacity: 1;
+
+    &__image {
+      transition: 0.3s ease-in-out all;
+      width: 300px;
+    }
+
+    &__image-hide {
+      transition: 0.3s ease-in-out all;
+      transform: scale(0);
+    }
   }
- }
+}
+
+@media screen and (min-width: 2000px) {
+  .gameboard {
+    .left-player,
+    .right-player {
+      .player-cards {
+        &__image {
+          width: 400px;
+          height: 400px;
+        }
+      }
+    }
+
+    .totem {
+      &__image {
+        width: 400px;
+      }
+    }
+  }
 }
 
 @keyframes catch {
- from{
-  transform: translateX(-50%) translateY(10px) scale(0);
- }
- to{
-  transform: translateX(-50%) translateY(0px) scale(1);
- }
+  from {
+    transform: translateX(-50%) translateY(10px) scale(0);
+  }
+  to {
+    transform: translateX(-50%) translateY(0px) scale(1);
+  }
 }
