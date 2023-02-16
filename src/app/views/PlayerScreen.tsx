@@ -98,9 +98,13 @@ const PlayerScreen = () => {
       if (player.playerNumber === 1) {
         newPlayers[0].card = currentCard.cardName;
         newPlayers[0].cardShape = currentCard.cardShape;
+        newPlayers[0].discardCards.push(currentCard.id);
+        newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
       } else {
         newPlayers[1].card = currentCard.cardName;
         newPlayers[1].cardShape = currentCard.cardShape;
+        newPlayers[1].discardCards.push(currentCard.id);
+        newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
       }
 
       console.log("new players :", newPlayers);
@@ -110,6 +114,9 @@ const PlayerScreen = () => {
         playerTurn: game?.playerTurn === 1 ? 2 : 1,
         players: newPlayers,
       });
+
+      console.log(game?.players);
+      
     }
   };
 
