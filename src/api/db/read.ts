@@ -1,6 +1,6 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase.config";
-import { Game, Card, Cards, Rules } from "./utils";
+import { Game, Card, Cards, Rule } from "./utils";
 
 export const getGame = async (
   setGame: React.Dispatch<React.SetStateAction<Game | null>>
@@ -32,13 +32,13 @@ export const getCards = async (
 };
 
 export const getRules = async (
-  setRules: React.Dispatch<React.SetStateAction<Rules>>
+  setRules: React.Dispatch<React.SetStateAction<Rule | null>>
 ): Promise<boolean> => {
   const documentRef = doc(db, "rules", "rules");
 
   return new Promise((resolve) => {
     onSnapshot(documentRef, (doc) => {
-      setRules(doc.data() as Rules);
+      setRules(doc.data() as Rule);
     });
     resolve(true);
   });

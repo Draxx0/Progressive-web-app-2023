@@ -1,15 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 
 import { updateGame } from "../../api/db/post";
-import { getRules } from "../../api/db/read";
-import { IPlayer, Rules } from "../../api/db/utils";
+import { IPlayer } from "../../api/db/utils";
 import Countdown from "../components/Countdown";
+import RulesModal from "../components/RulesModal";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
-  const [rules, setRules] = useState<Rules>([]);
+  const [isActive, setIsActive] = useState<boolean>(false);
   const { game, setGame } = useContext(GameContext);
   const { player, setPlayer } = useContext(PlayerContext);
   const [username, setUsername] = useState<string>("");
@@ -21,9 +21,8 @@ const PlayerScreen = () => {
     playerIsAvailable: null,
   });
 
-  useEffect(() => {
-    getRules(setRules);
-  }, []);
+
+ 
 
   useEffect(() => {
     if (game && game.players.length && viewState.playerIsAvailable === null) {
@@ -75,19 +74,31 @@ const PlayerScreen = () => {
     }
   };
 
+  const handleClcik = () => {
+    setIsActive(!isActive);
+    console.log(isActive);
+    
+  };
+
   return (
+    
     <div
       className="playerScreen"
       style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
     >
+      
       {username ? (
         !viewState.isFetching && (
           <>
+          {isActive && (
+                    <RulesModal/>
+                  )
+                  }
             <div>
               {viewState.playerIsAvailable ? (
                 <>
                   <div className="buttons">
-                    <img src="./assets/icons/rules.png" alt="rules" />
+                    <img src="./assets/icons/rules.png" alt="rules" onClick={handleClcik} />
                     <img src="./assets/icons/sound.png" alt="sound" />
                   </div>
 
