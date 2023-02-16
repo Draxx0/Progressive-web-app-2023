@@ -3,13 +3,14 @@ import { updateGame } from "../../api/db/post";
 import { getCards, getRules } from "../../api/db/read";
 import { Cards, IPlayer, Rules } from "../../api/db/utils";
 import Countdown from "../components/Countdown";
+import { CardsContext } from "../contexts/cardsContext";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
-  const [cards, setCards] = useState<Cards>([]);
   const { game, setGame } = useContext(GameContext);
+  const { cards } = useContext(CardsContext);
   const { player, setPlayer } = useContext(PlayerContext);
   const [username, setUsername] = useState<string>("");
   const [viewState, setViewState] = useState<{
@@ -17,12 +18,8 @@ const PlayerScreen = () => {
     playerIsAvailable: null | boolean;
   }>({
     isFetching: false, // repasser à true pour que ça fonctionne
-    playerIsAvailable: null
+    playerIsAvailable: null,
   });
-
-  useEffect(() => {
-    getCards(setCards);
-  }, []);
 
   useEffect(() => {
     if (game && game.players.length && viewState.playerIsAvailable === null) {
@@ -39,7 +36,7 @@ const PlayerScreen = () => {
 
       setViewState({
         ...viewState,
-        playerIsAvailable: playerIndex >= 0 ? true : false
+        playerIsAvailable: playerIndex >= 0 ? true : false,
       });
 
       setPlayer(game.players[playerIndex]);
@@ -50,22 +47,31 @@ const PlayerScreen = () => {
 
   // GET PLAYER SLOT
   useEffect(() => {
-    if (game?.players && viewState.playerIsAvailable != null && viewState.isFetching) {
+    if (
+      game?.players &&
+      viewState.playerIsAvailable != null &&
+      viewState.isFetching
+    ) {
       setViewState({
         ...viewState,
-        isFetching: false
+        isFetching: false,
       });
     }
   }, [game?.players]);
 
   const handleGrabTotem = () => {
     if (game) {
-      const isCardShapeEmpty = game?.players.every((player: IPlayer) => player.cardShape === "");
+      const isCardShapeEmpty = game?.players.every(
+        (player: IPlayer) => player.cardShape === ""
+      );
       console.log("isCardShapeEmpty :", isCardShapeEmpty);
 
       console.log(game?.players[0].cardShape === game?.players[1].cardShape);
 
-      if (game?.players[0].cardShape === game?.players[1].cardShape && !isCardShapeEmpty) {
+      if (
+        game?.players[0].cardShape === game?.players[1].cardShape &&
+        !isCardShapeEmpty
+      ) {
         // if (!game.isSameCard) {
         //   if (player.playerNumber === 1) {
         //     const discard = cards.map(card => {
@@ -88,47 +94,50 @@ const PlayerScreen = () => {
     if (game) {
       const newPlayers = game.players;
 
-      const player1Cards = cards.filter(card => card.cardOwner === "player 1");
-      const player2Cards = cards.filter(card => card.cardOwner === "player 2");
+      const player1Cards = cards?.filter(
+        (card) => card.cardOwner === "player 1"
+      );
+      const player2Cards = cards?.filter(
+        (card) => card.cardOwner === "player 2"
+      );
 
-      const currentCardIndex =
-        player.playerNumber === 1
-          ? Math.floor(Math.random() * player1Cards.length)
-          : Math.floor(Math.random() * player2Cards.length);
+      if (player1Cards && player2Cards) {
+        const currentCardIndex =
+          player.playerNumber === 1
+            ? Math.floor(Math.random() * player1Cards.length)
+            : Math.floor(Math.random() * player2Cards.length);
 
-      const currentCard =
-        player.playerNumber === 1 ? player1Cards[currentCardIndex] : player2Cards[currentCardIndex];
+        const currentCard =
+          player.playerNumber === 1
+            ? player1Cards[currentCardIndex]
+            : player2Cards[currentCardIndex];
 
-      console.log("current card :", currentCard);
+        if (player.playerNumber === 1) {
+          newPlayers[0].card = currentCard.cardName;
+          newPlayers[0].cardShape = currentCard.cardShape;
+          newPlayers[0].discardCards.push(currentCard.id);
+          newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
+        } else {
+          newPlayers[1].card = currentCard.cardName;
+          newPlayers[1].cardShape = currentCard.cardShape;
+          newPlayers[1].discardCards.push(currentCard.id);
+          newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
+        }
 
-      if (player.playerNumber === 1) {
-        newPlayers[0].card = currentCard.cardName;
-        newPlayers[0].cardShape = currentCard.cardShape;
-        newPlayers[0].discardCards.push(currentCard.id);
-        newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
-      } else {
-        newPlayers[1].card = currentCard.cardName;
-        newPlayers[1].cardShape = currentCard.cardShape;
-        newPlayers[1].discardCards.push(currentCard.id);
-        newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
+        updateGame({
+          ...game,
+          playerTurn: game?.playerTurn === 1 ? 2 : 1,
+          players: newPlayers,
+        });
       }
-
-      console.log("new players :", newPlayers);
-
-      updateGame({
-        ...game,
-        playerTurn: game?.playerTurn === 1 ? 2 : 1,
-        players: newPlayers
-      });
-
-      console.log(game?.players);
     }
   };
 
   return (
     <div
       className="playerScreen"
-      style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}>
+      style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
+    >
       {username ? (
         !viewState.isFetching && (
           <>
@@ -146,7 +155,11 @@ const PlayerScreen = () => {
                   </div>
                   <div className="interactions">
                     <div className="grab-button">
-                      <img src="./assets/images/grab.png" alt="grab" onClick={handleGrabTotem} />
+                      <img
+                        src="./assets/images/grab.png"
+                        alt="grab"
+                        onClick={handleGrabTotem}
+                      />
                     </div>
                     <div className="card">
                       <img
@@ -154,10 +167,14 @@ const PlayerScreen = () => {
                         alt="card"
                         style={{
                           filter:
-                            player.playerNumber !== game?.playerTurn ? "brightness(0.5)" : "initial"
+                            player.playerNumber !== game?.playerTurn
+                              ? "brightness(0.5)"
+                              : "initial",
                         }}
                         onClick={
-                          player.playerNumber === game?.playerTurn ? handlePutCard : () => {}
+                          player.playerNumber === game?.playerTurn
+                            ? handlePutCard
+                            : () => {}
                         }
                       />
                     </div>

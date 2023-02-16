@@ -28,7 +28,6 @@ export const getCards = async (
         dbCards.push({ ...doc.data(), id: doc.id } as Card);
         console.log("GETCARDS DB");
         setCards(dbCards);
-        console.log('JE LOOP MEC CARDS');
       });
       resolve(true);
     });
