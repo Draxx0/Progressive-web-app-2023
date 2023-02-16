@@ -9,7 +9,7 @@ const Countdown = () => {
   const [rules, setRules] = useState<any>({}); // type à changer voir rémi
   useEffect(() => {
     getRules(setRules);
-  }, [rules]);
+  }, []);
 
   let defaultCountdown = rules.delayToPlay;
 

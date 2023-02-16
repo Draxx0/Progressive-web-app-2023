@@ -9,6 +9,7 @@ export const getGame = async (
     const documentRef = doc(db, "games", "game");
     onSnapshot(documentRef, (doc) => {
       setGame(doc.data() as Game);
+      console.log('JE LOOP MEC GAME');
     });
     resolve(true);
   });
@@ -25,6 +26,7 @@ export const getCards = async (
       snapshot.forEach((doc) => {
         dbCards.push({ ...doc.data(), id: doc.id } as Card);
         setCards(dbCards);
+        console.log('JE LOOP MEC CARDS');
       });
       resolve(true);
     });
@@ -39,6 +41,7 @@ export const getRules = async (
   return new Promise((resolve) => {
     onSnapshot(documentRef, (doc) => {
       setRules(doc.data() as Rules);
+      console.log('JE LOOP MEC RULES');
     });
     resolve(true);
   });

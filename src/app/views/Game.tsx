@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { updateCards, updateGame } from "../../api/db/post";
+import { createCards, createGame, updateCards, updateGame } from "../../api/db/post";
 import { getCards } from "../../api/db/read";
 import { Cards } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
@@ -12,12 +12,6 @@ const GameView = () => {
   useEffect(() => {
     getCards(setCards);
   }, []);
-
-  useEffect(() => {
-    if (cards) {
-      console.log("card : ", cards);
-    }
-  }, [cards]);
 
   useEffect(() => {
     if (game) {

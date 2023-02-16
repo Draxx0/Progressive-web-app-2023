@@ -9,7 +9,6 @@ import { PlayerContext } from "../contexts/playerContext";
 import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
-  const [rules, setRules] = useState<Rules>([]);
   const [cards, setCards] = useState<Cards>([]);
   const { game, setGame } = useContext(GameContext);
   const { player, setPlayer } = useContext(PlayerContext);
@@ -23,7 +22,6 @@ const PlayerScreen = () => {
   });
 
   useEffect(() => {
-    getRules(setRules);
     getCards(setCards);
   }, []);
 
@@ -73,7 +71,6 @@ const PlayerScreen = () => {
 
   const handlePutCard = () => {
     if (game) {
-      const newGame = game;
       const newPlayers = game.players;
 
       const player1Cards = cards.filter(
