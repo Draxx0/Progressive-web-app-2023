@@ -20,6 +20,7 @@ const GameContextProvider: FC<IProps> = ({ children }) => {
   const [game, setGame] = useState<Game | null>(null);
 
   useEffect(() => {
+    console.log("yo");
     getGame(setGame);
   }, []);
 

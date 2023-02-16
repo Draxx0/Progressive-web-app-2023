@@ -5,7 +5,7 @@ import { PlayerContext } from "../contexts/playerContext";
 
 const MenuScreen = ({
   username,
-  setUsername,
+  setUsername
 }: {
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
@@ -19,22 +19,18 @@ const MenuScreen = ({
     if (game) {
       const newPlayers = game.players;
       newPlayers[player.playerNumber - 1].playerName = credentials;
-      updateGame({...game, players: newPlayers});
+      updateGame({ ...game, players: newPlayers });
     }
   };
 
   return (
     <>
       <div className="userName">
-        <img
-          src="./assets/images/userName-input.png"
-          alt="userName"
-          className="userName__image"
-        />
+        <img src="./assets/images/userName-input.png" alt="userName" className="userName__image" />
         <input
           type="text"
           placeholder="Enter username"
-          onChange={(e) => setCredentials(e.target.value)}
+          onChange={e => setCredentials(e.target.value)}
           className="userName__input"
         />
       </div>
@@ -47,11 +43,7 @@ const MenuScreen = ({
         />
       </div>
       <div className="feuille">
-        <img
-          src="./assets/images/feuilleu.png"
-          alt="feuille"
-          className="feuille__image"
-        />
+        <img src="./assets/images/feuilleu.png" alt="feuille" className="feuille__image" />
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase.config";
 import { Game, Card, Cards, Rules } from "./utils";
 
@@ -10,28 +10,38 @@ export const getGame = async (
     onSnapshot(documentRef, doc => {
       console.log("GETGAME DB");
       setGame(doc.data() as Game);
-      console.log('JE LOOP MEC GAME');
     });
     resolve(true);
   });
 };
 
-export const getCards = async (
-  setCards: React.Dispatch<React.SetStateAction<Cards>>
-): Promise<boolean> => {
-  const collectionRef = collection(db, "cards");
+// export const getCards = async (
+//   setCards: React.Dispatch<React.SetStateAction<Cards>>
+// ): Promise<boolean> => {
+//   const collectionRef = collection(db, "cards");
 
-  return new Promise(resolve => {
-    onSnapshot(collectionRef, snapshot => {
-      const dbCards: Cards = [];
-      snapshot.forEach(doc => {
-        dbCards.push({ ...doc.data(), id: doc.id } as Card);
-        console.log("GETCARDS DB");
-        setCards(dbCards);
-      });
-      resolve(true);
-    });
+//   return new Promise(resolve => {
+//     onSnapshot(collectionRef, snapshot => {
+//       const dbCards: Cards = [];
+//       snapshot.forEach(doc => {
+//         dbCards.push({ ...doc.data(), id: doc.id } as Card);
+//         console.log("GETCARDS DB");
+//         setCards(dbCards);
+//       });
+//       resolve(true);
+//     });
+//   });
+// };
+
+export const getCardsOnlyOnce = async (setCards: React.Dispatch<React.SetStateAction<Cards>>) => {
+  const collectionRef = collection(db, "cards");
+  const usersSnapshot = await getDocs(collectionRef);
+  const dbCards: Cards = [];
+  usersSnapshot.forEach(doc => {
+    dbCards.push({ ...doc.data(), id: doc.id } as Card);
   });
+  console.log("GETCARDS DB - ONE TIME");
+  setCards(dbCards);
 };
 
 export const getRules = async (
