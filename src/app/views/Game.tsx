@@ -31,10 +31,14 @@ const GameView = () => {
 
   // REPARTITION DES CARTES
   useEffect(() => {
-    if (game && !game?.isGameActive) {
+    if (game) {
       const readyToPlay = game.players.filter(
         (player) => player.isReservedSlot === true
       );
+      console.log(readyToPlay.length === 2);
+      console.log(cards);
+      console.log(!isGameCreated);
+      console.log("------------------------------");
       if (readyToPlay.length === 2 && cards && !isGameCreated) {
         const splitedCards = splitArray(cards);
 
@@ -57,9 +61,6 @@ const GameView = () => {
           }
           return card;
         });
-
-        newPlayers[0].discardCards = [];
-        newPlayers[1].discardCards = [];
 
         updateGame({ ...game, players: newPlayers, isGameActive: true });
         updateCards(cardsOwner);
@@ -111,26 +112,31 @@ const GameView = () => {
 
   // PUT CARD FOR PLAYER 0
   useEffect(() => {
+    console.log("USEEFFECT PUT CARD FOR PLAYER 0");
+    console.log(isGameCreated);
     if (
       game &&
       isGameCreated &&
       game?.players[0].cardsNumber != maxCardsByPlayer &&
       game?.playerTurn === 1 &&
-      game.isTotemCatch != ""
+      game.isTotemCatch === ""
     ) {
+      console.log(" PUT CARD");
       handlePutCard(0);
     }
   }, [game?.players[0].cardsNumber]);
 
   // PUT CARD FOR PLAYER 1
   useEffect(() => {
+    console.log("USEEFFECT PUT CARD FOR PLAYER 2");
     if (
       game &&
       isGameCreated &&
       game?.players[1].cardsNumber != maxCardsByPlayer &&
       game?.playerTurn === 2 &&
-      game.isTotemCatch != ""
+      game.isTotemCatch === ""
     ) {
+      console.log("PLAYER 2");
       handlePutCard(1);
     }
   }, [game?.players[1].cardsNumber]);
@@ -295,6 +301,25 @@ const GameView = () => {
     game?.players[1].discardCards.length,
   ]);
 
+  const resetPlayers = () => {
+    if (game) {
+      console.log("RESET PLAYERS");
+      const newPlayers = game?.players.map((player) => {
+        return {
+          ...player,
+          card: "",
+          cardShape: "",
+          discardCards: [],
+          cardsNumber: 24,
+          isReservedSlot: false,
+          playerName: "",
+        };
+      });
+      setIsGameCreated(false);
+      updateGame({ ...game, isGameActive: false, players: newPlayers });
+    }
+  };
+
   return (
     <div
       className="game"
@@ -381,6 +406,7 @@ const GameView = () => {
           </div>
         </div>
       </div>
+      <div onClick={resetPlayers}>Reset</div>
     </div>
   );
 };

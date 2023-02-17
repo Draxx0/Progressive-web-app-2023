@@ -13,7 +13,8 @@ const PlayerScreen = () => {
   const { game, setGame } = useContext(GameContext);
   // const [cards, setCards] = useState<Cards>([]);
   const { player, setPlayer } = useContext(PlayerContext);
-  const [isClicked,setIsClicked ] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [totemIsClicked, setTotemIsClicked] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [viewState, setViewState] = useState<{
     isFetching: boolean;
@@ -63,6 +64,7 @@ const PlayerScreen = () => {
 
   const handleGrabTotem = () => {
     if (game) {
+      setTotemIsClicked(true);
       updateGame({
         ...game,
         isTotemCatch: `player ${player.playerNumber}`,
@@ -71,30 +73,37 @@ const PlayerScreen = () => {
     }
   };
 
+  useEffect(() => {
+    if (game?.isTotemCatch === "") {
+      setTotemIsClicked(false);
+    } else {
+      setTotemIsClicked(true);
+    }
+  }, [game?.isTotemCatch]);
+
   // UPDATE CARD NUMBER & PLAYER TURN
 
   useEffect(() => {
-    if(game?.playerTurn != player.playerNumber) {
-      setIsClicked(false)
-    } 
-  }, [game?.playerTurn])
-  
-  
+    if (game?.playerTurn != player.playerNumber) {
+      setIsClicked(false);
+    }
+  }, [game?.playerTurn]);
+
   const changeCardNumber = () => {
+    console.log("yoo");
     if (game && !isClicked) {
       const newPlayers = game.players;
-       if (player.playerNumber === 1 )
-       {
+      if (player.playerNumber === 1) {
         newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
       } else {
         newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
-      }  
-      
+      }
+
       updateGame({
         ...game,
         players: newPlayers,
       });
-     setIsClicked(true)
+      setIsClicked(true);
     }
   };
 
@@ -131,7 +140,16 @@ const PlayerScreen = () => {
                             <img
                               src="./assets/images/grab.png"
                               alt="grab"
-                              onClick={handleGrabTotem}
+                              style={{
+                                filter: totemIsClicked
+                                  ? "brightness(0.5)"
+                                  : "initial",
+                              }}
+                              onClick={
+                                !totemIsClicked
+                                  ? () => handleGrabTotem()
+                                  : () => {}
+                              }
                             />
                           </div>
                           <div className="card">
@@ -141,12 +159,14 @@ const PlayerScreen = () => {
                                 alt="card"
                                 style={{
                                   filter:
-                                    player.playerNumber !== game?.playerTurn
+                                    player.playerNumber !== game?.playerTurn ||
+                                    totemIsClicked
                                       ? "brightness(0.5)"
                                       : "initial",
                                 }}
                                 onClick={
-                                  player.playerNumber === game?.playerTurn
+                                  player.playerNumber === game?.playerTurn ||
+                                  totemIsClicked
                                     ? () => changeCardNumber()
                                     : () => {}
                                 }
