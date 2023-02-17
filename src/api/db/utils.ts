@@ -2,7 +2,7 @@ type Game = {
   isGameActive: boolean;
   isGamePause: boolean;
   isSameCard: boolean;
-  isTotemCatch: boolean;
+  isTotemCatch: string;
   numberOfPlayer: number;
   playerTurn: number;
   players: IPlayer[];
@@ -13,7 +13,7 @@ const gameDefault: Game = {
   numberOfPlayer: 0,
   isSameCard: false,
   isGamePause: false,
-  isTotemCatch: false,
+  isTotemCatch: "",
   players: [
     {
       playerName: "",

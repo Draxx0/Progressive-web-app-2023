@@ -11,7 +11,7 @@ import { Cards, Game, gameDefault } from "./utils";
 
 export const createGame = async () => {
   const newData = gameDefault;
-  const docRef = doc(db, "games", "game" );
+  const docRef = doc(db, "games", "game");
   await setDoc(docRef, newData, { merge: true })
     .then(() => {
       console.log("Game successfully created!");
@@ -31,8 +31,6 @@ export const createCards = async () => {
 };
 
 export const updateGame = async (game: Game) => {
-  console.log("toto le bo");
-  
   const docRef = doc(db, "games", "game");
   const newData = game;
   await setDoc(docRef, newData, { merge: true })
@@ -51,10 +49,11 @@ export const updateCards = async (cards: Cards) => {
 
   cards.forEach((card) => {
     const docRef = doc(collectionRef, card.id);
+    console.log("BOUCLE ZBI");
+
     batch.update(docRef, card);
   });
 
-  console.log(batch);
   await batch.commit().then(() => {
     console.log("Cards successfully updated!");
   });

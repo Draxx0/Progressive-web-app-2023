@@ -11,19 +11,25 @@ const Countdown = () => {
     getRules(setRules);
   }, []);
 
-  let defaultCountdown = rules.delayToPlay;
+  useEffect(() => {
+    setCountdown(rules.delayToPlay);
+  }, [rules]);
 
-  const [countdown, setCountdown] = useState(defaultCountdown);
+  const [countdown, setCountdown] = useState<number | null>(null);
   const { player } = useContext(PlayerContext);
   const { game } = useContext(GameContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (game && game.isGamePause === false && game.playerTurn === player.playerNumber) {
-        if (countdown > 0) {
+      if (
+        game &&
+        game.isGamePause === false &&
+        game.playerTurn === player.playerNumber
+      ) {
+        if (countdown && countdown > 0) {
           setCountdown(countdown - 1);
         } else {
-          setCountdown(defaultCountdown);
+          setCountdown(rules.delayToPlay);
           updateGame({ ...game, playerTurn: game?.playerTurn === 1 ? 2 : 1 });
         }
       } else {
