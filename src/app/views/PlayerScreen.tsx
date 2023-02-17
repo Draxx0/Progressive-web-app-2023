@@ -89,7 +89,6 @@ const PlayerScreen = () => {
   };
 
   return (
-    
     <div
       className="playerScreen"
       style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
@@ -97,13 +96,16 @@ const PlayerScreen = () => {
       {username ? (
         !viewState.isFetching && (
           <>
-            <RulesModal isActive={isActive}/>
+            <RulesModal isActive={isActive} />
             <div>
               {viewState.playerIsAvailable ? (
                 <>
                   <div className="buttons">
-                    <img src="./assets/icons/rules.png" alt="rules" onClick={() => setIsActive(!isActive)} />
-                    <img src="./assets/icons/sound.png" alt="sound" />
+                    <img
+                      src="./assets/icons/rules.png"
+                      alt="rules"
+                      onClick={() => setIsActive(!isActive)}
+                    />
                   </div>
 
                   <div className="cooldown">

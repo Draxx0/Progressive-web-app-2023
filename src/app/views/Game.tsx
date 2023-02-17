@@ -9,6 +9,7 @@ import { getCards } from "../../api/db/read";
 import { Cards, IPlayer } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
+import shuffleArrays from "../functions/randomizeArrayItem";
 import splitArray from "../functions/splitArray";
 
 const GameView = () => {
@@ -27,7 +28,7 @@ const GameView = () => {
 
   // REPARTITION DES CARTES
   useEffect(() => {
-    if (game) {
+    if (game && !game?.isGameActive) {
       const readyToPlay = game.players.filter(
         (player) => player.isReservedSlot === true
       );
@@ -54,9 +55,53 @@ const GameView = () => {
           return card;
         });
 
+        newPlayers[0].discardCards = [];
+        newPlayers[1].discardCards = [];
+
         updateGame({ ...game, players: newPlayers, isGameActive: true });
         updateCards(cardsOwner);
         setIsGameCreated(true);
+      }
+    }
+  }, [game?.players]);
+
+  //SHUFFLE CARDS IF CARDSNUMBER IS 0 AND DISCARDS IS NOT EMPTY
+  useEffect(() => {
+    if (game) {
+      if (
+        game?.players[0].cardsNumber === 0 &&
+        game?.players[1].cardsNumber === 0 &&
+        game?.players[0].discardCards.length > 0 &&
+        game?.players[1].discardCards.length > 0
+      ) {
+        console.log("plus de cartes des deux côtés");
+        const playerCards1 = cards.filter(
+          (card) => card.cardOwner === "player 1"
+        );
+        const playerCards2 = cards.filter(
+          (card) => card.cardOwner === "player 2"
+        );
+
+        console.log("playerCards1 before shuffle", playerCards1);
+        console.log("playerCards2 before shuffle", playerCards2);
+
+        const shuffledArrays = shuffleArrays(playerCards1, playerCards2);
+
+        console.log("playerCards1 after shuffle", shuffledArrays[0]);
+        console.log("playerCards2 after shuffle", shuffledArrays[1]);
+
+        const newPlayers = game.players.map((player) => {
+          if (player.playerNumber === 1) {
+            player.cardsNumber = shuffledArrays[0].length;
+            player.discardCards = [];
+          } else if (player.playerNumber === 2) {
+            player.cardsNumber = shuffledArrays[1].length;
+            player.discardCards = [];
+          }
+          return player;
+        });
+
+        updateGame({ ...game, players: newPlayers });
       }
     }
   }, [game?.players]);
@@ -194,25 +239,43 @@ const GameView = () => {
         updateGame({ ...game, players: newPlayers });
         updateCards(newCardsOwner);
       }
+
+      setTimeout(() => {
+        updateGame({
+          ...game,
+          isTotemCatch: "",
+          isGamePause: false,
+        });
+      }, 5000);
     }
   };
 
   useEffect(() => {
-    if(game){
+    if (game) {
       const newGame = game;
-    if(game?.players[0].cardsNumber === 0 && game?.players[0].discardCards.length  === 0) {
-      newGame.winner = game?.players[0].playerName;
-      updateGame({ ...game, isGameActive: false });
-    } else if(game?.players[1].cardsNumber === 0 && game?.players[1].discardCards.length  === 0) {
-      newGame.winner = game?.players[1].playerName;
-          updateGame({ ...game, isGameActive: false });
+      if (
+        game?.players[0].cardsNumber === 0 &&
+        game?.players[0].discardCards.length === 0
+      ) {
+        newGame.winner = game?.players[0].playerName;
+        updateGame({ ...game, isGameActive: false });
+      } else if (
+        game?.players[1].cardsNumber === 0 &&
+        game?.players[1].discardCards.length === 0
+      ) {
+        newGame.winner = game?.players[1].playerName;
+        updateGame({ ...game, isGameActive: false });
+      }
     }
-    }
-  }, [game?.players[0].cardsNumber, game?.players[1].cardsNumber, game?.players[0].discardCards.length, game?.players[1].discardCards.length]);
+  }, [
+    game?.players[0].cardsNumber,
+    game?.players[1].cardsNumber,
+    game?.players[0].discardCards.length,
+    game?.players[1].discardCards.length,
+  ]);
 
-  
   return (
-    <div  
+    <div
       className="game"
       style={{
         backgroundImage: `url('./assets/images/game-bg.jpg')`,
@@ -223,9 +286,7 @@ const GameView = () => {
     >
       <div className="gameboard">
         {game?.winner && (
-          <p className="winner">
-            Le gagnant est : {game?.winner}{" "}
-          </p>
+          <p className="winner">Le gagnant est : {game?.winner} </p>
         )}
         {game?.isTotemCatch && (
           <p className="catch">

@@ -11,11 +11,11 @@
   padding: 0 100px;
 
   .catch {
-    font-size: 100px;
+    font-size: 50px;
     color: white;
     position: absolute;
     left: 50%;
-    top: 5%;
+    top: 10%;
     transform: translateX(-50%);
     animation: catch 0.3s ease-in-out forwards;
   }
@@ -27,12 +27,14 @@
         width: 300px;
         height: 300px;
       }
-      &__playerName{
+
+      &__playerName {
         color: white;
       }
+
       &__cardsNumber {
-          color: white;
-        }
+        color: white;
+      }
     }
   }
 
@@ -53,6 +55,7 @@
 
 @media screen and (min-width: 2000px) {
   .gameboard {
+
     .left-player,
     .right-player {
       .player-cards {
@@ -75,6 +78,7 @@
   from {
     transform: translateX(-50%) translateY(10px) scale(0);
   }
+
   to {
     transform: translateX(-50%) translateY(0px) scale(1);
   }

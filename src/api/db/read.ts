@@ -23,9 +23,9 @@ export const getCards = async (
   return new Promise((resolve) => {
     onSnapshot(collectionRef, (snapshot) => {
       const dbCards: Cards = [];
+      console.log("GETCARDS DB");
       snapshot.forEach((doc) => {
         dbCards.push({ ...doc.data(), id: doc.id } as Card);
-        console.log("GETCARDS DB");
         setCards(dbCards);
       });
       resolve(true);
