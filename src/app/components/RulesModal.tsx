@@ -4,7 +4,7 @@ import { Rule } from "../../api/db/utils";
 
 const  RulesModal = ({isActive} : {isActive:boolean}) => {
      
-    const [rules, setRules] = useState<Rule | null>(null);
+    const [rules, setRules] = useState<any>({});
 
     useEffect(() => {
      getRules(setRules);

@@ -2,7 +2,7 @@ type Game = {
   isGameActive: boolean;
   isGamePause: boolean;
   isSameCard: boolean;
-  isTotemCatch: boolean;
+  isTotemCatch: string;
   numberOfPlayer: number;
   playerTurn: number;
   players: IPlayer[];
@@ -13,7 +13,7 @@ const gameDefault: Game = {
   numberOfPlayer: 0,
   isSameCard: false,
   isGamePause: false,
-  isTotemCatch: false,
+  isTotemCatch: "",
   players: [
     {
       playerName: "",
@@ -59,6 +59,8 @@ type Rule = {
   turnCooldown: number;
 };
 
+type Rules = Rule[]
+
 type IPlayer = {
   card: string;
   cardShape: string;
@@ -79,5 +81,5 @@ const playerDefault = {
   playerName: "",
 };
 
-export type { Game, Games, Card, Cards, Rule, IPlayer };
+export type { Game, Games, Card, Cards, Rule, Rules, IPlayer };
 export { playerDefault, gameDefault };

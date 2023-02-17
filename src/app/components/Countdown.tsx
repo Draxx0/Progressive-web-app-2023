@@ -1,30 +1,36 @@
 import { useState, useEffect, useContext } from "react";
 import { updateGame } from "../../api/db/post";
 import { getRules } from "../../api/db/read";
-import { Rule } from "../../api/db/utils";
+import {  Rules } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 
 const Countdown = () => {
-  const [rules, setRules] = useState<Rule | null>(null);
+  const [rules, setRules] = useState<any>({});
   useEffect(() => {
     getRules(setRules);
   }, []);
 
-  let defaultCountdown = rules?.delayToPlay;
+  useEffect(() => {
+    setCountdown(rules.delayToPlay);
+  }, [rules]);
 
-  const [countdown, setCountdown] = useState(defaultCountdown);
+  const [countdown, setCountdown] = useState<number | null>(null);
   const { player } = useContext(PlayerContext);
   const { game } = useContext(GameContext);
 
   useEffect(() => {
    if(countdown) {
     const interval = setInterval(() => {
-      if (game && game.isGamePause === false && game.playerTurn === player.playerNumber) {
-        if (countdown > 0) {
+      if (
+        game &&
+        game.isGamePause === false &&
+        game.playerTurn === player.playerNumber
+      ) {
+        if (countdown && countdown > 0) {
           setCountdown(countdown - 1);
         } else {
-          setCountdown(defaultCountdown);
+          setCountdown(rules.delayToPlay);
           updateGame({ ...game, playerTurn: game?.playerTurn === 1 ? 2 : 1 });
         }
       } else {
