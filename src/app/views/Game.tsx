@@ -260,7 +260,7 @@ const GameView = () => {
   };
 
   useEffect(() => {
-    if (game) {
+    if (game && game?.winner) {
       setTimeout(() => {
         navigate("/endgame");
       }, 5000);
