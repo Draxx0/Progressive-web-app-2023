@@ -199,7 +199,7 @@ const GameView = () => {
     }
   }, [game?.players[0].cardsNumber, game?.players[1].cardsNumber, game?.players[0].discardCards.length, game?.players[1].discardCards.length]);
 
-  
+
   return (
     <div  
       className="game"
