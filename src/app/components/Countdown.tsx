@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { updateGame } from "../../api/db/post";
 import { getRules } from "../../api/db/read";
-import { Rules } from "../../api/db/utils";
+import {  Rules } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 
@@ -20,6 +20,7 @@ const Countdown = () => {
   const { game } = useContext(GameContext);
 
   useEffect(() => {
+   if(countdown) {
     const interval = setInterval(() => {
       if (
         game &&
@@ -37,6 +38,7 @@ const Countdown = () => {
       }
     }, 1000);
     return () => clearInterval(interval);
+   }
   }, [countdown, game]);
 
   return (

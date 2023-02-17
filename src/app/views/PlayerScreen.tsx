@@ -3,11 +3,13 @@ import { updateGame } from "../../api/db/post";
 import { getRules } from "../../api/db/read";
 import { Cards, IPlayer, Rules } from "../../api/db/utils";
 import Countdown from "../components/Countdown";
+import RulesModal from "../components/RulesModal";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
 import MenuScreen from "./MenuScreen";
 
 const PlayerScreen = () => {
+  const [isActive, setIsActive] = useState<boolean>(false);
   const { game, setGame } = useContext(GameContext);
   // const [cards, setCards] = useState<Cards>([]);
   const { player, setPlayer } = useContext(PlayerContext);
@@ -87,6 +89,7 @@ const PlayerScreen = () => {
   };
 
   return (
+    
     <div
       className="playerScreen"
       style={{ backgroundImage: `url('./assets/images/remote-menu-bg.jpg')` }}
@@ -94,11 +97,12 @@ const PlayerScreen = () => {
       {username ? (
         !viewState.isFetching && (
           <>
+            <RulesModal isActive={isActive}/>
             <div>
               {viewState.playerIsAvailable ? (
                 <>
                   <div className="buttons">
-                    <img src="./assets/icons/rules.png" alt="rules" />
+                    <img src="./assets/icons/rules.png" alt="rules" onClick={() => setIsActive(!isActive)} />
                     <img src="./assets/icons/sound.png" alt="sound" />
                   </div>
 

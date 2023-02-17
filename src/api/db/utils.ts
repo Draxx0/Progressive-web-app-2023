@@ -55,11 +55,11 @@ type Cards = Card[];
 
 type Rule = {
   delayToPlay: number;
-  maxPlayer: number;
+  maxPlayers: number;
   turnCooldown: number;
 };
 
-type Rules = Rule[];
+type Rules = Rule[]
 
 type IPlayer = {
   card: string;
@@ -81,5 +81,5 @@ const playerDefault = {
   playerName: "",
 };
 
-export type { Game, Games, Card, Cards, Rules, Rule, IPlayer };
+export type { Game, Games, Card, Cards, Rule, Rules, IPlayer };
 export { playerDefault, gameDefault };

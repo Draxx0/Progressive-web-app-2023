@@ -1,6 +1,6 @@
 import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase.config";
-import { Game, Card, Cards, Rules } from "./utils";
+import { Game, Card, Cards, Rule, Rules } from "./utils";
 
 export const getGame = async (
   setGame: React.Dispatch<React.SetStateAction<Game | null>>

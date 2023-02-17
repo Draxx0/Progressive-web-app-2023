@@ -54,7 +54,7 @@ const GameView = () => {
           return card;
         });
 
-        updateGame({ ...game, players: newPlayers });
+        updateGame({ ...game, players: newPlayers, isGameActive: true });
         updateCards(cardsOwner);
         setIsGameCreated(true);
       }
@@ -197,8 +197,22 @@ const GameView = () => {
     }
   };
 
+  useEffect(() => {
+    if(game){
+      const newGame = game;
+    if(game?.players[0].cardsNumber === 0 && game?.players[0].discardCards.length  === 0) {
+      newGame.winner = game?.players[0].playerName;
+      updateGame({ ...game, isGameActive: false });
+    } else if(game?.players[1].cardsNumber === 0 && game?.players[1].discardCards.length  === 0) {
+      newGame.winner = game?.players[1].playerName;
+          updateGame({ ...game, isGameActive: false });
+    }
+    }
+  }, [game?.players[0].cardsNumber, game?.players[1].cardsNumber, game?.players[0].discardCards.length, game?.players[1].discardCards.length]);
+
+  
   return (
-    <div
+    <div  
       className="game"
       style={{
         backgroundImage: `url('./assets/images/game-bg.jpg')`,
@@ -208,6 +222,11 @@ const GameView = () => {
       }}
     >
       <div className="gameboard">
+        {game?.winner && (
+          <p className="winner">
+            Le gagnant est : {game?.winner}{" "}
+          </p>
+        )}
         {game?.isTotemCatch && (
           <p className="catch">
             Catch ! Le gagnant de ce round : {roundWinner?.playerName}{" "}
