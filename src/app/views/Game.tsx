@@ -2,16 +2,15 @@ import { useState, useEffect, useContext } from "react";
 import { createCards, createGame, updateCards, updateGame } from "../../api/db/post";
 import { getCards } from "../../api/db/read";
 import { Cards } from "../../api/db/utils";
+import { CardsContext } from "../contexts/cardsContext";
 import { GameContext } from "../contexts/gameContext";
 import splitArray from "../functions/splitArray";
 
 const GameView = () => {
-  const [cards, setCards] = useState<Cards>([]);
   const { game, setGame } = useContext(GameContext);
+  const {cards} = useContext(CardsContext);
 
-  useEffect(() => {
-    getCards(setCards);
-  }, []);
+
 
   useEffect(() => {
     if (game) {
@@ -82,7 +81,7 @@ const GameView = () => {
         </div>
         <div className="right-player">
           <div className="player-cards">
-            <p className="player-cards__playername"> {game?.players[1].playerName}</p>
+            <p className="player-cards__playerName"> {game?.players[1].playerName}</p>
             <p className="player-cards__cardsNumber">
               {game?.players[1].cardsNumber} carte(s) restantes
             </p>
