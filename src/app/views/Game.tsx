@@ -115,7 +115,8 @@ const GameView = () => {
       game &&
       isGameCreated &&
       game?.players[0].cardsNumber != maxCardsByPlayer &&
-      game?.playerTurn === 1
+      game?.playerTurn === 1 &&
+      game.isTotemCatch != ""
     ) {
       handlePutCard(0);
     }
@@ -127,7 +128,8 @@ const GameView = () => {
       game &&
       isGameCreated &&
       game?.players[1].cardsNumber != maxCardsByPlayer &&
-      game?.playerTurn === 2
+      game?.playerTurn === 2 &&
+      game.isTotemCatch != ""
     ) {
       handlePutCard(1);
     }
@@ -135,6 +137,7 @@ const GameView = () => {
 
   // PUT CARD AND CHANGE PLAYER TURN
   const handlePutCard = (playerIndex: 0 | 1) => {
+    console.log("HADLEPUTCARD -----------------------------------");
     if (game) {
       const newPlayers = game.players;
 
@@ -267,6 +270,7 @@ const GameView = () => {
     }
   }, [game?.winner]);
 
+  // WIN CONDITION
   useEffect(() => {
     if (game) {
       const newGame = game;
