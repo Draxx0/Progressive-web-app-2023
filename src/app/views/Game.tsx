@@ -132,29 +132,46 @@ const GameView = () => {
         ...game.players[1].discardCards,
       ];
 
+      const discardCardsId = totalDiscardCards.map((cardId: string) => {
+        return cardId;
+      });
+
+      const discardCards = cards.filter((card) => {
+        if (discardCardsId.includes(card.id)) {
+          return card;
+        } else {
+          return false;
+        }
+      });
+
+      // WININING CONDITION
       if (
         game?.players[0].cardShape === game?.players[1].cardShape &&
         !isCardShapeEmpty
       ) {
-        // ICI LES DEUX CARTES SONT IDENTIQUES DONC RECUPERER LES CARTES DE LA DEFAUSSE DU GAGNANT ET LES STOCKER DANS UN ARRAY & UN ARRAY DE LA DEFAUSSE DU PERDANT
-        console.log("WIN :", totalDiscardCards);
-        console.log("player :", player.playerNumber);
+        const newCardsOwner = discardCards.map((card) => {
+          const newCard = {
+            ...card,
+            cardOwner:
+              game?.isTotemCatch === "player 1" ? "player 2" : "player 1",
+          };
+          return newCard;
+        });
+
+        const playerIndex = game?.isTotemCatch === "player 1" ? 1 : 0;
+
+        newPlayers[playerIndex].cardsNumber =
+          newPlayers[playerIndex].cardsNumber + totalDiscardCards.length;
+
+        newPlayers.forEach((player) => {
+          player.discardCards = [];
+        });
+
+        setRoundWinner(newPlayers[game?.isTotemCatch === "player 1" ? 0 : 1]);
+
+        updateGame({ ...game, players: newPlayers });
+        updateCards(newCardsOwner);
       } else {
-        console.log("LOSE :", totalDiscardCards);
-        // player.cardsNumber = player.cardsNumber + totalDiscardCards.length;
-
-        const discardCardsId = totalDiscardCards.map((cardId: string) => {
-          return cardId;
-        });
-
-        const discardCards = cards.filter((card) => {
-          if (discardCardsId.includes(card.id)) {
-            return card;
-          } else {
-            return false;
-          }
-        });
-
         const newCardsOwner = discardCards.map((card) => {
           const newCard = {
             ...card,
@@ -163,11 +180,7 @@ const GameView = () => {
           return newCard;
         });
 
-        console.log("mes super cartes :", newCardsOwner);
-
         const playerIndex = +game?.isTotemCatch.slice(-1);
-
-        console.log(newPlayers[playerIndex - 1].cardsNumber);
 
         newPlayers[playerIndex - 1].cardsNumber =
           newPlayers[playerIndex - 1].cardsNumber + totalDiscardCards.length;
@@ -177,12 +190,10 @@ const GameView = () => {
         });
 
         setRoundWinner(newPlayers[game?.isTotemCatch === "player 1" ? 1 : 0]);
-        // updateGame({ ...game, players: newPlayers });
-        // updateCards(newCardsOwner);
 
-        // EXPECTED RESULT : [ { id: '', cardShape: '', cardColor: '', cardName: '', cardOwner: ''}, ... ]
+        updateGame({ ...game, players: newPlayers });
+        updateCards(newCardsOwner);
       }
-      // updateGame({ ...game, isTotemCatch: true, isGamePause: true });
     }
   };
 
