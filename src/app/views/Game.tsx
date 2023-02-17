@@ -240,9 +240,15 @@ const GameView = () => {
         updateCards(newCardsOwner);
       }
 
+      newPlayers.forEach((player) => {
+        player.card = "";
+        player.cardShape = "";
+      });
+
       setTimeout(() => {
         updateGame({
           ...game,
+          players: newPlayers,
           isTotemCatch: "",
           isGamePause: false,
         });
@@ -301,6 +307,9 @@ const GameView = () => {
             <p className="player-cards__cardsNumber">
               {game?.players[0].cardsNumber} carte(s) restantes
             </p>
+            <p className="player-cards__cardsNumber">
+              {game?.players[0].discardCards.length} carte(s) en défausse
+            </p>
             <img
               src={
                 !game?.players[0].card
@@ -329,6 +338,9 @@ const GameView = () => {
             </p>
             <p className="player-cards__cardsNumber">
               {game?.players[1].cardsNumber} carte(s) restantes
+            </p>
+            <p className="player-cards__cardsNumber">
+              {game?.players[1].discardCards.length} carte(s) en défausse
             </p>
             <img
               src={

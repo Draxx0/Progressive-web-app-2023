@@ -1,6 +1,11 @@
+* {
+  font-family: "Skranji", cursive;
+  letter-spacing: 3px;
+}
+
 body {
- margin: 0;
- padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -10,12 +15,12 @@ h4,
 h5,
 span,
 p {
- margin: 0;
- padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 *,
 *:before,
 *:after {
- box-sizing: border-box;
+  box-sizing: border-box;
 }
