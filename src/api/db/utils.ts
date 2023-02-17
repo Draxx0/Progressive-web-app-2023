@@ -22,7 +22,7 @@ const gameDefault: Game = {
       card: "",
       discardCards: [],
       playerNumber: 1,
-      isReservedSlot: false,
+      isReservedSlot: false
     },
 
     {
@@ -32,12 +32,12 @@ const gameDefault: Game = {
       card: "",
       discardCards: [],
       playerNumber: 2,
-      isReservedSlot: false,
-    },
+      isReservedSlot: false
+    }
   ],
   playerTurn: 1,
   isGameActive: false,
-  winner: "",
+  winner: ""
 };
 
 type Games = Game[];
@@ -78,7 +78,7 @@ const playerDefault = {
   discardCards: [],
   playerNumber: 0,
   isReservedSlot: false,
-  playerName: "",
+  playerName: ""
 };
 
 export type { Game, Games, Card, Cards, Rules, Rule, IPlayer };

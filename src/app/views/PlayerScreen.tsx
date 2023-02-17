@@ -120,42 +120,85 @@ const PlayerScreen = () => {
             <div>
               {viewState.playerIsAvailable ? (
                 <>
-                  <div className="buttons">
-                    <img src="./assets/icons/rules.png" alt="rules" />
-                    <img src="./assets/icons/sound.png" alt="sound" />
-                  </div>
+                  <div>
+                    {game?.players[0].isReservedSlot === true &&
+                    game?.players[1].isReservedSlot === true ? (
+                      <>
+                        <div className="buttons">
+                          <img src="./assets/icons/rules.png" alt="rules" />
+                          <img src="./assets/icons/sound.png" alt="sound" />
+                        </div>
 
-                  <div className="cooldown">
-                    <img src="./assets/images/Sign.png" alt="sign" />
-                    <Countdown />
-                  </div>
-                  <div className="interactions">
-                    <div className="grab-button">
-                      <img src="./assets/images/grab.png" alt="grab" onClick={handleGrabTotem} />
-                    </div>
-                    <div className="card">
-                      {
-                        <img
-                          src="./assets/images/back-card.png"
-                          alt="card"
-                          style={{
-                            filter:
-                              player.playerNumber !== game?.playerTurn
-                                ? "brightness(0.5)"
-                                : "initial"
-                          }}
-                          onClick={
-                            player.playerNumber === game?.playerTurn
-                              ? () => changeCardNumber()
-                              : () => {}
-                          }
-                        />
-                      }
-                    </div>
+                        <div className="cooldown">
+                          <img src="./assets/images/Sign.png" alt="sign" />
+                          <Countdown />
+                        </div>
+                        <div className="interactions">
+                          <div className="grab-button">
+                            <img
+                              src="./assets/images/grab.png"
+                              alt="grab"
+                              onClick={handleGrabTotem}
+                            />
+                          </div>
+                          <div className="card">
+                            {
+                              <img
+                                src="./assets/images/back-card.png"
+                                alt="card"
+                                style={{
+                                  filter:
+                                    player.playerNumber !== game?.playerTurn
+                                      ? "brightness(0.5)"
+                                      : "initial"
+                                }}
+                                onClick={
+                                  player.playerNumber === game?.playerTurn
+                                    ? () => changeCardNumber()
+                                    : () => {}
+                                }
+                              />
+                            }
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="waitingRoom">
+                        <div className="waitingContainer">
+                          <p className="wait">En attente d'un autre joueur</p>
+                          {/* <img src="./assets/icons/loading.gif" alt="loading" /> */}
+                          <section className="loading-data">
+                            <h2 className="loading-text text-center text-uppercase">
+                              <span className="char">C</span>
+                              <span className="char">h</span>
+                              <span className="char">a</span>
+                              <span className="char">r</span>
+                              <span className="char">g</span>
+                              <span className="char">e</span>
+                              <span className="char">m</span>
+                              <span className="char">e</span>
+                              <span className="char">n</span>
+                              <span className="char">t</span>
+                            </h2>
+                          </section>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
-                <p>La salle est pleine</p>
+                <div className="fullContainer">
+                  <img src="./assets/images/Sign.png" alt="sign" />
+                  <img
+                    className="reboot"
+                    src="./assets/icons/reboot-icon.png"
+                    alt="reboot"
+                    onClick={() => {
+                      window.location.reload();
+                    }}
+                  />
+                  <p className="full">Veuillez patienter une partie est en cours</p>
+                </div>
               )}
             </div>
           </>
