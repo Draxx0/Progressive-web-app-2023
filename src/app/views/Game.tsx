@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   createCards,
   createGame,
@@ -19,6 +20,8 @@ const GameView = () => {
   const [isGameCreated, setIsGameCreated] = useState(false);
   const maxCardsByPlayer = 24;
   const [roundWinner, setRoundWinner] = useState<IPlayer | null>(null);
+
+  const navigate = useNavigate();
   // const {cards} = useContext(CardsContext);
 
   // GET CARD ONLY ONCE
@@ -258,6 +261,14 @@ const GameView = () => {
 
   useEffect(() => {
     if (game) {
+      setTimeout(() => {
+        navigate("/endgame");
+      }, 5000);
+    }
+  }, [game?.winner]);
+
+  useEffect(() => {
+    if (game) {
       const newGame = game;
       if (
         game?.players[0].cardsNumber === 0 &&
@@ -292,7 +303,19 @@ const GameView = () => {
     >
       <div className="gameboard">
         {game?.winner && (
-          <p className="winner">Le gagnant est : {game?.winner} </p>
+          <p
+            className="winner"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              fontSize: "2rem",
+              color: "white",
+            }}
+          >
+            Le gagnant est : {game?.winner}{" "}
+          </p>
         )}
         {game?.isTotemCatch && (
           <p className="catch">

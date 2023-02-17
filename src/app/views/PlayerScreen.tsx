@@ -13,6 +13,7 @@ const PlayerScreen = () => {
   const { game, setGame } = useContext(GameContext);
   // const [cards, setCards] = useState<Cards>([]);
   const { player, setPlayer } = useContext(PlayerContext);
+  const [isClicked,setIsClicked ] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [viewState, setViewState] = useState<{
     isFetching: boolean;
@@ -71,20 +72,29 @@ const PlayerScreen = () => {
   };
 
   // UPDATE CARD NUMBER & PLAYER TURN
-  const changeCardNumber = () => {
-    if (game) {
-      const newPlayers = game.players;
 
-      if (player.playerNumber === 1) {
+  useEffect(() => {
+    if(game?.playerTurn != player.playerNumber) {
+      setIsClicked(false)
+    } 
+  }, [game?.playerTurn])
+  
+  
+  const changeCardNumber = () => {
+    if (game && !isClicked) {
+      const newPlayers = game.players;
+       if (player.playerNumber === 1 )
+       {
         newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
       } else {
         newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
-      }
-
+      }  
+      
       updateGame({
         ...game,
         players: newPlayers,
       });
+     setIsClicked(true)
     }
   };
 
