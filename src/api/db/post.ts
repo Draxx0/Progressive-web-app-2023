@@ -1,10 +1,4 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  setDoc,
-  writeBatch,
-} from "firebase/firestore";
+import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../services/firebase.config";
 import cards from "../../app/data/cards.json";
 import { Cards, Game, gameDefault } from "./utils";
@@ -42,15 +36,12 @@ export const updateGame = async (game: Game) => {
 
 export const updateCards = async (cards: Cards) => {
   const collectionRef = collection(db, "cards");
-  // const documents = await getDocs(collectionRef);
   console.log(cards);
 
   const batch = writeBatch(db);
 
   cards.forEach((card) => {
     const docRef = doc(collectionRef, card.id);
-    console.log("BOUCLE ZBI");
-
     batch.update(docRef, card);
   });
 

@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { updateGame } from "../../api/db/post";
-import { getRules } from "../../api/db/read";
-import { Cards, IPlayer, Rules } from "../../api/db/utils";
+import { IPlayer } from "../../api/db/utils";
 import Countdown from "../components/Countdown";
 import RulesModal from "../components/RulesModal";
 import { GameContext } from "../contexts/gameContext";
@@ -11,9 +10,7 @@ import MenuScreen from "./MenuScreen";
 const PlayerScreen = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const { game, setGame } = useContext(GameContext);
-  // const [cards, setCards] = useState<Cards>([]);
   const { player, setPlayer } = useContext(PlayerContext);
-  const [isClicked, setIsClicked] = useState<boolean>(false);
   const [totemIsClicked, setTotemIsClicked] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
   const [viewState, setViewState] = useState<{
@@ -81,17 +78,8 @@ const PlayerScreen = () => {
     }
   }, [game?.isTotemCatch]);
 
-  // UPDATE CARD NUMBER & PLAYER TURN
-
-  useEffect(() => {
-    if (game?.playerTurn != player.playerNumber) {
-      setIsClicked(false);
-    }
-  }, [game?.playerTurn]);
-
   const changeCardNumber = () => {
-    console.log("yoo");
-    if (game && !isClicked) {
+    if (game && game.isTotemCatch === "") {
       const newPlayers = game.players;
       if (player.playerNumber === 1) {
         newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
@@ -103,7 +91,6 @@ const PlayerScreen = () => {
         ...game,
         players: newPlayers,
       });
-      setIsClicked(true);
     }
   };
 

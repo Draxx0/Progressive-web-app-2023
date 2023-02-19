@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { getRules } from "../../api/db/read";
-import { Rule } from "../../api/db/utils";
 
 const RulesModal = ({ isActive }: { isActive: boolean }) => {
   const [rules, setRules] = useState<any>({});

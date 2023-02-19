@@ -1,11 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  createCards,
-  createGame,
-  updateCards,
-  updateGame,
-} from "../../api/db/post";
+import { updateCards, updateGame } from "../../api/db/post";
 import { getCards } from "../../api/db/read";
 import { Cards, IPlayer } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
@@ -14,15 +9,12 @@ import shuffleArrays from "../functions/randomizeArrayItem";
 import splitArray from "../functions/splitArray";
 
 const GameView = () => {
-  const { game, setGame } = useContext(GameContext);
+  const { game } = useContext(GameContext);
   const [cards, setCards] = useState<Cards>([]);
-  const { player } = useContext(PlayerContext);
   const [isGameCreated, setIsGameCreated] = useState(false);
   const maxCardsByPlayer = 24;
   const [roundWinner, setRoundWinner] = useState<IPlayer | null>(null);
-
   const navigate = useNavigate();
-  // const {cards} = useContext(CardsContext);
 
   // GET CARD ONLY ONCE
   useEffect(() => {
@@ -35,10 +27,6 @@ const GameView = () => {
       const readyToPlay = game.players.filter(
         (player) => player.isReservedSlot === true
       );
-      console.log(readyToPlay.length === 2);
-      console.log(cards);
-      console.log(!isGameCreated);
-      console.log("------------------------------");
       if (readyToPlay.length === 2 && cards && !isGameCreated) {
         const splitedCards = splitArray(cards);
 
@@ -78,7 +66,6 @@ const GameView = () => {
         game?.players[0].discardCards.length > 0 &&
         game?.players[1].discardCards.length > 0
       ) {
-        console.log("plus de cartes des deux côtés");
         const playerCards1 = cards.filter(
           (card) => card.cardOwner === "player 1"
         );
@@ -86,13 +73,7 @@ const GameView = () => {
           (card) => card.cardOwner === "player 2"
         );
 
-        console.log("playerCards1 before shuffle", playerCards1);
-        console.log("playerCards2 before shuffle", playerCards2);
-
         const shuffledArrays = shuffleArrays(playerCards1, playerCards2);
-
-        console.log("playerCards1 after shuffle", shuffledArrays[0]);
-        console.log("playerCards2 after shuffle", shuffledArrays[1]);
 
         const newPlayers = game.players.map((player) => {
           if (player.playerNumber === 1) {
@@ -112,8 +93,6 @@ const GameView = () => {
 
   // PUT CARD FOR PLAYER 0
   useEffect(() => {
-    console.log("USEEFFECT PUT CARD FOR PLAYER 0");
-    console.log(isGameCreated);
     if (
       game &&
       isGameCreated &&
@@ -121,14 +100,12 @@ const GameView = () => {
       game?.playerTurn === 1 &&
       game.isTotemCatch === ""
     ) {
-      console.log(" PUT CARD");
       handlePutCard(0);
     }
   }, [game?.players[0].cardsNumber]);
 
   // PUT CARD FOR PLAYER 1
   useEffect(() => {
-    console.log("USEEFFECT PUT CARD FOR PLAYER 2");
     if (
       game &&
       isGameCreated &&
@@ -136,14 +113,12 @@ const GameView = () => {
       game?.playerTurn === 2 &&
       game.isTotemCatch === ""
     ) {
-      console.log("PLAYER 2");
       handlePutCard(1);
     }
   }, [game?.players[1].cardsNumber]);
 
   // PUT CARD AND CHANGE PLAYER TURN
   const handlePutCard = (playerIndex: 0 | 1) => {
-    console.log("HADLEPUTCARD -----------------------------------");
     if (game) {
       const newPlayers = game.players;
 
@@ -303,7 +278,6 @@ const GameView = () => {
 
   const resetPlayers = () => {
     if (game) {
-      console.log("RESET PLAYERS");
       const newPlayers = game?.players.map((player) => {
         return {
           ...player,
@@ -406,7 +380,18 @@ const GameView = () => {
           </div>
         </div>
       </div>
-      <div onClick={resetPlayers}>Reset</div>
+      <div
+        onClick={resetPlayers}
+        style={{
+          position: "absolute",
+          bottom: 10,
+          left: 10,
+          color: "white",
+          cursor: "pointer",
+        }}
+      >
+        Reset
+      </div>
     </div>
   );
 };
