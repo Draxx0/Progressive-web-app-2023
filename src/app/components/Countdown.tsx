@@ -26,7 +26,7 @@ const Countdown = () => {
           game.isGamePause === false &&
           game.playerTurn === player.playerNumber
         ) {
-          if (countdown && countdown > 0) {
+          if (countdown && countdown > 1) {
             setCountdown(countdown - 1);
           } else {
             setCountdown(rules.delayToPlay);

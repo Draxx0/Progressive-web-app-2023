@@ -145,6 +145,20 @@ const GameView = () => {
   };
 
   useEffect(() => {
+    if (
+      game?.players[0].cardsNumber === 0 &&
+      game?.players[0].discardCards.length > 0
+    ) {
+      updateGame({ ...game, playerTurn: 2 });
+    } else if (
+      game?.players[1].cardsNumber === 0 &&
+      game?.players[1].discardCards.length > 0
+    ) {
+      updateGame({ ...game, playerTurn: 1 });
+    }
+  }, [game?.players]);
+
+  useEffect(() => {
     if (game && game?.isTotemCatch) {
       handleCatchTotem();
     }
