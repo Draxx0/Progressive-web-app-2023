@@ -1,15 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  createCards,
-  createGame,
-  updateCards,
-  updateGame,
-} from "../../api/db/post";
+import { updateCards, updateGame } from "../../api/db/post";
 import { getCards } from "../../api/db/read";
 import { Cards, IPlayer } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
-import { PlayerContext } from "../contexts/playerContext";
 import shuffleArrays from "../functions/randomizeArrayItem";
 import splitArray from "../functions/splitArray";
 

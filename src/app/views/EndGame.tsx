@@ -1,7 +1,14 @@
 import { GameContext } from "../contexts/gameContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const EndGame = () => {
   const { game } = useContext(GameContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!game?.winner) {
+      navigate("/game");
+    }
+  }, [game?.winner]);
   return (
     <div
       className="endGame"
