@@ -1,6 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateCards, updateGame } from "../../api/db/post";
+import {
+  createCards,
+  createGame,
+  updateCards,
+  updateGame,
+} from "../../api/db/post";
 import { getCards } from "../../api/db/read";
 import { Cards, IPlayer } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
@@ -290,7 +295,12 @@ const GameView = () => {
         };
       });
       setIsGameCreated(false);
-      updateGame({ ...game, isGameActive: false, players: newPlayers });
+      updateGame({
+        ...game,
+        isGameActive: false,
+        players: newPlayers,
+        winner: "",
+      });
     }
   };
 
