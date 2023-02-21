@@ -56,7 +56,6 @@ type Cards = Card[];
 type Rule = {
   delayToPlay: number;
   maxPlayers: number;
-  turnCooldown: number;
 };
 
 type Rules = Rule[]

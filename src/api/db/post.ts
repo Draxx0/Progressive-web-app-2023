@@ -1,7 +1,7 @@
 import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
 import { db } from "../services/firebase.config";
 import cards from "../../app/data/cards.json";
-import { Cards, Game, gameDefault } from "./utils";
+import { Cards, Game, gameDefault, Rules } from "./utils";
 
 export const createGame = async () => {
   const newData = gameDefault;
@@ -34,9 +34,18 @@ export const updateGame = async (game: Game) => {
     .catch((err) => console.log(err));
 };
 
+export const updateRules = async (rules: Rules) => {
+  const docRef = doc(db, "rules", "rules");
+  const newData = rules;
+  await setDoc(docRef, newData, { merge: true })
+    .then(() => {
+      console.log("Rules successfully updated!");
+    })
+    .catch((err) => console.log(err));
+};
+
 export const updateCards = async (cards: Cards) => {
   const collectionRef = collection(db, "cards");
-  console.log(cards);
 
   const batch = writeBatch(db);
 

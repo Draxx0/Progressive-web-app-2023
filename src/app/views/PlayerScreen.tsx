@@ -5,11 +5,11 @@ import Countdown from "../components/Countdown";
 import RulesModal from "../components/RulesModal";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
-import MenuScreen from "./MenuScreen";
+import MenuScreen from "../components/MenuScreen";
 
 const PlayerScreen = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const { game, setGame } = useContext(GameContext);
+  const { game } = useContext(GameContext);
   const { player, setPlayer } = useContext(PlayerContext);
   const [totemIsClicked, setTotemIsClicked] = useState<boolean>(false);
   const [username, setUsername] = useState<string>("");
@@ -166,7 +166,6 @@ const PlayerScreen = () => {
                       <div className="waitingRoom">
                         <div className="waitingContainer">
                           <p className="wait">En attente d'un autre joueur</p>
-                          {/* <img src="./assets/icons/loading.gif" alt="loading" /> */}
                           <section className="loading-data">
                             <h2 className="loading-text text-center text-uppercase">
                               <span className="char">C</span>

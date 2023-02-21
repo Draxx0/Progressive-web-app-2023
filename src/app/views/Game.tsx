@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateCards, updateGame } from "../../api/db/post";
-import { getCards } from "../../api/db/read";
+import { updateCards, updateGame, updateRules } from "../../api/db/post";
+import { getCards, getRules } from "../../api/db/read";
 import { Cards, IPlayer } from "../../api/db/utils";
 import { GameContext } from "../contexts/gameContext";
 import shuffleArrays from "../functions/randomizeArrayItem";
@@ -14,11 +14,17 @@ const GameView = () => {
   const maxCardsByPlayer = 24;
   const [roundWinner, setRoundWinner] = useState<IPlayer | null>(null);
   const navigate = useNavigate();
+  const [rules, setRules] = useState<any>({});
 
   // GET CARD ONLY ONCE
   useEffect(() => {
     getCards(setCards);
   }, []);
+
+  useEffect(() => {
+    getRules(setRules);
+  }, []);
+
 
   // REPARTITION DES CARTES
   useEffect(() => {
@@ -141,6 +147,7 @@ const GameView = () => {
         playerTurn: game?.playerTurn === 1 ? 2 : 1,
         players: newPlayers,
       });
+      // updateRules({...rules, delayToPlay: 30})
     }
   };
 

@@ -12,6 +12,7 @@ const Countdown = () => {
 
   useEffect(() => {
     setCountdown(rules.delayToPlay);
+    console.log("rules updated la bg");
   }, [rules]);
 
   const [countdown, setCountdown] = useState<number | null>(null);
@@ -33,6 +34,7 @@ const Countdown = () => {
             updateGame({ ...game, playerTurn: game?.playerTurn === 1 ? 2 : 1 });
           }
         } else {
+          console.log("je clear");
           clearInterval(interval);
         }
       }, 1000);
