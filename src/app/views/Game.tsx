@@ -25,7 +25,6 @@ const GameView = () => {
     getRules(setRules);
   }, []);
 
-
   // REPARTITION DES CARTES
   useEffect(() => {
     if (game) {
@@ -96,6 +95,25 @@ const GameView = () => {
     }
   }, [game?.players]);
 
+  // IF PLAYER DOESN'T PLAY IN TIME PUT A CARD FOR HIM
+  useEffect(() => {
+    if (game && rules?.isTimeout === true) {
+      const newPlayers = game.players;
+
+      if (game?.playerTurn === 1) {
+        newPlayers[0].cardsNumber = newPlayers[0].cardsNumber - 1;
+        updateGame({ ...game, players: newPlayers });
+        handlePutCard(0);
+        updateRules({ ...rules, isTimeout: false });
+      } else {
+        newPlayers[1].cardsNumber = newPlayers[1].cardsNumber - 1;
+        updateGame({ ...game, players: newPlayers });
+        handlePutCard(1);
+        updateRules({ ...rules, isTimeout: false });
+      }
+    }
+  }, [rules?.isTimeout]);
+
   // PUT CARD FOR PLAYER 0
   useEffect(() => {
     if (
@@ -142,12 +160,15 @@ const GameView = () => {
         newPlayers[playerIndex].discardCards.push(currentCard.id);
       }
 
+      updateRules({
+        ...rules,
+        isRulesChange: rules?.isRulesChange === true ? false : true,
+      });
       updateGame({
         ...game,
         playerTurn: game?.playerTurn === 1 ? 2 : 1,
         players: newPlayers,
       });
-      // updateRules({...rules, delayToPlay: 30})
     }
   };
 

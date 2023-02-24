@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { updateGame } from "../../api/db/post";
+import { updateGame, updateRules } from "../../api/db/post";
 import { getRules } from "../../api/db/read";
 import { GameContext } from "../contexts/gameContext";
 import { PlayerContext } from "../contexts/playerContext";
@@ -12,7 +12,6 @@ const Countdown = () => {
 
   useEffect(() => {
     setCountdown(rules.delayToPlay);
-    console.log("rules updated la bg");
   }, [rules]);
 
   const [countdown, setCountdown] = useState<number | null>(null);
@@ -31,10 +30,10 @@ const Countdown = () => {
             setCountdown(countdown - 1);
           } else {
             setCountdown(rules.delayToPlay);
+            updateRules({...rules, isTimeout: true})
             updateGame({ ...game, playerTurn: game?.playerTurn === 1 ? 2 : 1 });
           }
         } else {
-          console.log("je clear");
           clearInterval(interval);
         }
       }, 1000);
